@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="template (content)">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="/scripts/categories.js"></script>
 </head>
 <body>
+    <div class="container">
+        <div class="page-general">
+            <div class="nav-bar">
+                <nav th:replace="~{fragments/navigation :: nav}">
+                </nav>
+            </div>
+            <div class="content">
+                <div class="accordeon">
+                    <span class="accordeon-header">Select something</span>
+                    <div class="accordeon-body hide">
+                    </div>
+                </div>
+<!--                <section th:replace="~{/newTransaction :: new-trans}">-->
+<!--                </section>-->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 
 </body>
 </html>

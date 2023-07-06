@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <nav id="page-nav" th:fragment="nav">
+        <div>
+            <ul>
+                <li class="nav-item">
+                    <a>
+                        <h4>
+                            <img class="nav-png" th:src="@{/icons/home.svg}" alt="home">
+                            <span> Home</span>
+                        </h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a>
+                        <h4>
+                            <img class="nav-png" th:src="@{/icons/overview.svg}" alt="Overview">
+                            <span> Overview</span>
+                        </h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a>
+                        <h4>
+                            <img class="nav-png" th:src="@{/icons/transaction.svg}" alt="New transaction">
+                            <span> New transaction</span>
+                        </h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a>
+                        <h4>
+                            <img class="nav-png" th:src="@{/icons/report.svg}" alt="Reports">
+                            <span> Reports</span>
+                        </h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>
