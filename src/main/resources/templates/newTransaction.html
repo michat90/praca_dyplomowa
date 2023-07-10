@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
       th:replace="~{fragments/layout :: template (~{:: #new-transaction-pag})}">
+
 <section id="new-transaction-page">
 
 
     <div th:fragment="new-trans" style="width: 500px">
         <h2>Tutaj bedzie mozna dodac transakcje</h2>
-        <table>
-            <tr>
+        <table id="table-new-transaction">
+            <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>Amount </h3>
                 </td>
                 <td>
-                    <input placeholder="Amount" type="text" class="input-table-new-trans"/>
+                    <input placeholder="0.00" type="text" class="input-table-new-trans"/>
                 </td>
-            </tr>
-            <tr>
+            </tr >
+            <tr class="table-row">
+                <td class="new-trans-table-row-left-side">
+                    <h3>Date </h3>
+                </td>
+                <td>
+                    <input placeholder="mm/dd/yyyy" type="text" id="datepicker" class="input-table-new-trans"/>
+                </td>
+            </tr >
+            <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>Category </h3>
                 </td>
                 <td>
                     <div class="accordeon">
-                        <span class="accordeon-header">Select Category</span>
+                    <span class="accordeon-header">Select Category</span>
                         <div class="accordeon-body hide">
                         </div>
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>Title </h3>
                 </td>
@@ -35,7 +44,7 @@
                     <input placeholder="Title" type="text" class="input-table-new-trans"/>
                 </td>
             </tr>
-            <tr>
+            <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>TAG </h3>
                 </td>

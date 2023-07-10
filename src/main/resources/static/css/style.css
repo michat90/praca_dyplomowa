@@ -83,13 +83,19 @@ table tr > td:last-child {
     background-color: #222222;
     height: 500px;
     margin: 0;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .content {
     width: 65%;
-    background-color: #1E87F0;
+    background-color: #ffffff;
     margin: 0;
     height: 500px;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    padding: 5px;
+    border-radius: 10px;
 }
 
 /*.nav-bar {*/
@@ -123,7 +129,6 @@ ul {
 .accordeon {
     width: 200px;
     height: 25px;
-    /*min-height: 340px;*/
     font-size: 17px;
     cursor: pointer;
     user-select: none;
@@ -138,13 +143,11 @@ ul {
 
 .accordeon-header {
     display: inline-block;
-    width: 290px;
-    border: solid black;
-    border-width: 0 0 0.1px 0;
-    /*border: solid 0.1vw  black;*/
-    /*border-radius: 0.2vw;*/
-    background-color: white;
-    padding-left: 10px;
+    width: 300px;
+    border: 1px solid whitesmoke;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #eff1f2;
     color: black;
 }
 
@@ -162,8 +165,8 @@ ul {
     cursor: pointer;
     width: 200px;
     text-align: left;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 17px;
+    font-weight: normal;
 }
 
 .accordeon-group {
@@ -182,27 +185,35 @@ ul {
     display: none;
 }
 
-.form-row {
-    width: 500px;
-    padding: 10px;
-    border-style: solid;
-}
-
 table tr > td:last-child {
     text-align: right;
 }
 
 .new-trans-table-row-left-side {
-    width: 300px
+    width: 300px;
+}
+.new-trans-table-row-left-side > h3 {
+    margin-left: 10px;
 }
 
 .input-table-new-trans {
-    border: solid black;
-    border-width: 0 0 0.1px 0;
-    /*border-radius: 0.2vw;*/
+    background-color: #eff1f2;
+    border: 1px solid whitesmoke;
+    padding: 5px;
+    border-radius: 4px;
     width: 300px;
     height: 20px;
     font-size: 15px;
     text-align: right;
+    margin-right: 10px;
 }
 
+.table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 25px 30px;
+}
+#table-new-transaction {
+    margin: 30px 30px;
+}
