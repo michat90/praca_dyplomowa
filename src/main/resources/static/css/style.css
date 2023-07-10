@@ -25,6 +25,7 @@ table tr > td:last-child {
 
 .container {
     margin: 100px auto 100px;
+    height: 750px;
 }
 
 /* ------------------------- */
@@ -58,22 +59,47 @@ table tr > td:last-child {
     padding: 10px 0;
 }
 
-.page-general {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(10, 50px);
-    grid-column-gap: 10px;
-    grid-row-gap: 0px;
-    }
+#page-general {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    /*justify-content: space-between;*/
+    /*display: grid;*/
+    /*grid-template-columns: repeat(12, 1fr);*/
+    /*grid-template-rows: repeat(10, 50px);*/
+    /*grid-column-gap: 10px;*/
+    /*grid-row-gap: 0px;*/
+}
 
-    .nav-bar {
-        grid-area: 1 / 1 / 11 / 3;
-        background-color: #222222;
-    }
-    .content {
-        grid-area: 1 / 3 / 11 / 13;
-        background-color: #FFFFFF;
-    }
+.page-general > div {
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    padding: 10px;
+}
+
+.nav-bar {
+    width: 15%;
+    background-color: #222222;
+    height: 500px;
+    margin: 0;
+}
+
+.content {
+    width: 65%;
+    background-color: #1E87F0;
+    margin: 0;
+    height: 500px;
+}
+
+/*.nav-bar {*/
+/*    grid-area: 1 / 1 / 11 / 3;*/
+/*    background-color: #222222;*/
+/*}*/
+/*.content {*/
+/*    grid-area: 1 / 3 / 11 / 13;*/
+/*    background-color: #FFFFFF;*/
+/*}*/
 
 .nav-png {
     width: 17px;
@@ -95,10 +121,10 @@ ul {
 }
 
 .accordeon {
-    width: 460px;
-    height: auto;
-    min-height: 340px;
-    font-size: 20px;
+    width: 200px;
+    height: 25px;
+    /*min-height: 340px;*/
+    font-size: 17px;
     cursor: pointer;
     user-select: none;
     -moz-user-select: none;
@@ -112,9 +138,11 @@ ul {
 
 .accordeon-header {
     display: inline-block;
-    width: 450px;
-    border: solid 0.1vw black;
-    border-radius: 0.2vw;
+    width: 290px;
+    border: solid black;
+    border-width: 0 0 0.1px 0;
+    /*border: solid 0.1vw  black;*/
+    /*border-radius: 0.2vw;*/
     background-color: white;
     padding-left: 10px;
     color: black;
@@ -132,7 +160,7 @@ ul {
 .button-group {
     display: block;
     cursor: pointer;
-    width: 460px;
+    width: 200px;
     text-align: left;
     font-size: 20px;
     font-weight: bold;
@@ -153,3 +181,28 @@ ul {
 .hide {
     display: none;
 }
+
+.form-row {
+    width: 500px;
+    padding: 10px;
+    border-style: solid;
+}
+
+table tr > td:last-child {
+    text-align: right;
+}
+
+.new-trans-table-row-left-side {
+    width: 300px
+}
+
+.input-table-new-trans {
+    border: solid black;
+    border-width: 0 0 0.1px 0;
+    /*border-radius: 0.2vw;*/
+    width: 300px;
+    height: 20px;
+    font-size: 15px;
+    text-align: right;
+}
+

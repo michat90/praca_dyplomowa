@@ -1,19 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: template (~{:: #new-transaction-pag})}">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: template (~{:: #new-transaction-pag})}">
 <section id="new-transaction-page">
 
 
-    <div th:fragment="new-trans">
-      <h2>Tutaj bedzie mozna dodac transakcje</h2>
-        <div class="content">
-            <div class="accordeon">
-                <span class="accordeon-header">Select something</span>
-                <div class="accordeon-body hide">
-                </div>
-            </div>
-            <!--                <section th:replace="~{/newTransaction :: new-trans}">-->
-            <!--                </section>-->
-        </div>
+    <div th:fragment="new-trans" style="width: 500px">
+        <h2>Tutaj bedzie mozna dodac transakcje</h2>
+        <table>
+            <tr>
+                <td class="new-trans-table-row-left-side">
+                    <h3>Amount </h3>
+                </td>
+                <td>
+                    <input placeholder="Amount" type="text" class="input-table-new-trans"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="new-trans-table-row-left-side">
+                    <h3>Category </h3>
+                </td>
+                <td>
+                    <div class="accordeon">
+                        <span class="accordeon-header">Select Category</span>
+                        <div class="accordeon-body hide">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="new-trans-table-row-left-side">
+                    <h3>Title </h3>
+                </td>
+                <td>
+                    <input placeholder="Title" type="text" class="input-table-new-trans"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="new-trans-table-row-left-side">
+                    <h3>TAG </h3>
+                </td>
+                <td>
+                    <input placeholder="Tag" type="text" class="input-table-new-trans"/>
+                </td>
+            </tr>
+        </table>
+
     </div>
 
 
