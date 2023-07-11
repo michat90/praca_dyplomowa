@@ -6,14 +6,17 @@
 
 
     <div th:fragment="new-trans" style="width: 500px">
-        <h2>Tutaj bedzie mozna dodac transakcje</h2>
+
         <table id="table-new-transaction">
             <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>Amount </h3>
                 </td>
                 <td>
-                    <input placeholder="0.00" type="text" class="input-table-new-trans"/>
+                    <input placeholder="0.00" type="text" class="input-table-new-trans" id="amount"/>
+                </td>
+                <td>
+                    <p class="error" id="amount-error" hidden></p>
                 </td>
             </tr >
             <tr class="table-row">
@@ -23,6 +26,9 @@
                 <td>
                     <input placeholder="mm/dd/yyyy" type="text" id="datepicker" class="input-table-new-trans"/>
                 </td>
+                <td>
+                    <span id="datepicker-error" hidden></span>
+                </td>
             </tr >
             <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
@@ -30,10 +36,13 @@
                 </td>
                 <td>
                     <div class="accordeon">
-                    <span class="accordeon-header">Select Category</span>
+                    <span class="accordeon-header" id="category">Select Category</span>
                         <div class="accordeon-body hide">
                         </div>
                     </div>
+                </td>
+                <td>
+                    <span id="category-error" hidden></span>
                 </td>
             </tr>
             <tr class="table-row">
@@ -41,7 +50,7 @@
                     <h3>Title </h3>
                 </td>
                 <td>
-                    <input placeholder="Title" type="text" class="input-table-new-trans"/>
+                    <input placeholder="Title" type="text" class="input-table-new-trans" id="title"/>
                 </td>
             </tr>
             <tr class="table-row">
@@ -49,11 +58,13 @@
                     <h3>TAG </h3>
                 </td>
                 <td>
-                    <input placeholder="Tag" type="text" class="input-table-new-trans"/>
+                    <input placeholder="Tag" type="text" class="input-table-new-trans" id="tag"/>
                 </td>
             </tr>
         </table>
-
+        <div style="margin-left: 50px;">
+            <p class="btn btn-new-transaction" id="btn-submit">SUBMIT</p>
+        </div>
     </div>
 
 

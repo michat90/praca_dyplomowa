@@ -33,6 +33,7 @@ window.onload = function () {
 
     initAccordeon(obj);   // <--------------------------- Call initialization
 
+
     function accordeonAddEvents() {
         Array.from(document.getElementsByClassName("accordeon-header")).forEach(function (header) {
             if (header.getAttribute("listener") !== "true") {
