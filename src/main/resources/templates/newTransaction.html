@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: template (~{:: #new-transaction-pag})}">
+      th:replace="~{fragments/layout :: template (~{:: #new-transaction-page})}">
 
 <section id="new-transaction-page">
 
-
-    <div th:fragment="new-trans" style="width: 500px">
+<!--    th:fragment="new-trans"-->
+    <div style="width: 500px">
 
         <table id="table-new-transaction">
             <tr class="table-row">
@@ -15,10 +15,13 @@
                 <td>
                     <input placeholder="0.00" type="text" class="input-table-new-trans" id="amount"/>
                 </td>
-                <td>
-                    <p class="error" id="amount-error" hidden></p>
-                </td>
             </tr >
+            <tr class="error">
+                <td colspan="2">
+                    <span id="amount-error" hidden></span>
+                </td>
+                <td></td>
+            </tr>
             <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>Date </h3>
@@ -26,10 +29,13 @@
                 <td>
                     <input placeholder="mm/dd/yyyy" type="text" id="datepicker" class="input-table-new-trans"/>
                 </td>
-                <td>
-                    <span id="datepicker-error" hidden></span>
-                </td>
             </tr >
+            <tr class="error">
+                <td colspan="2">
+                    <span  id="datepicker-error" hidden></span>
+                </td>
+                <td></td>
+            </tr>
             <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
                     <h3>Category </h3>
@@ -41,9 +47,12 @@
                         </div>
                     </div>
                 </td>
-                <td>
+            </tr>
+            <tr class="error">
+                <td colspan="2">
                     <span id="category-error" hidden></span>
                 </td>
+                <td></td>
             </tr>
             <tr class="table-row">
                 <td class="new-trans-table-row-left-side">
@@ -66,7 +75,5 @@
             <p class="btn btn-new-transaction" id="btn-submit">SUBMIT</p>
         </div>
     </div>
-
-
 </section>
 </html>

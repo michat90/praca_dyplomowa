@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: template (~{:: #history-page})}">
+      <section id="history-page" style="height: 100%; overflow-y: scroll">
+            <table id="table-new-transaction">
+                  <tr class="table-row" th:each="transaction : ${transactions}">
+                        <td>
+                              <h3 th:text="${transaction.id}"></h3>
+                        </td>
+                        <td>
+                              <h3 th:text="|${transaction.amount}zł|"></h3>
+                        </td>
+                        <td>
+                              <h3 th:text="${transaction.date}"></h3>
+                        </td>
+                        <td>
+                              <h3 th:text="${transaction.category}"></h3>
+                        </td>
+                        <td>
+                              <h3 th:text="${transaction.subCategory}"></h3>
+                        </td>
+                        <td>
+                              <h3 th:text="${transaction.tag}"></h3>
+                        </td>
+                        <td>
+                              <h3 th:text="${transaction.title}"></h3>
+                        </td>
+                        <td style="padding: 1px 10px">
+                              <a>
+                                    <img class="nav-png"  th:src="@{/icons/delete.svg}" alt="Delete">
+                              </a>
+                        </td>
+                        <td style="padding-right: 10px">
+                              <a>
+                                    <img class="nav-png"  th:src="@{/icons/edit.svg}" alt="Edit">
+                              </a>
+                        </td>
+                  </tr>
+            </table>
+      </section>
+</html>

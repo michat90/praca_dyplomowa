@@ -1,21 +1,12 @@
 window.onload = function () {
     const obj = {
-        Cars: {
-            SwedishCars: [
-                "Volvo",
-                "Saab"
+        Cars:  [
+                "1 Volvo",
+                "Saab",
+                "Audi A3",
+                "Audi A4",
+                "Audi A5"
             ],
-            GermanCars: [
-                "Mercedes",
-                {
-                    Audi: [
-                        "Audi A3",
-                        "Audi A4",
-                        "Audi A5"
-                    ]
-                }
-            ]
-        },
         Food: {
             Fruits: [
                 "Orange",
@@ -43,14 +34,15 @@ window.onload = function () {
                 header.setAttribute("listener", "true");
             }
         });
-
         Array.from(document.getElementsByClassName("button-group")).forEach(function (but) {
             if (but.getAttribute("listener") !== "true") {
                 but.addEventListener("click", function () {
                     if (this.getAttribute("depth") === "-1") {
                         let header = this;
                         while ((header = header.parentElement) && header.className !== "accordeon") ;
-                        header.getElementsByClassName("accordeon-header")[0].innerHTML = this.innerHTML;
+                        let mainHeader = this.parentNode.previousSibling
+                        header.getElementsByClassName("accordeon-header")[0].innerHTML = mainHeader.innerHTML + "/" + this.innerHTML;
+                        document.getElementsByClassName("accordeon-body")[0].classList.toggle("hide");
                         return;
                     }
                     const groups = Array.from(this.parentNode.getElementsByClassName("accordeon-group"));

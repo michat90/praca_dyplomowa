@@ -25,9 +25,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a>
+                    <a th:href="@{/new-transaction}">
                         <h4>
-                            <img class="nav-png" th:src="@{/icons/transaction.svg}" alt="New transaction">
+                            <img class="nav-png"  th:src="@{/icons/transaction.svg}" alt="New transaction">
                             <span> New transaction</span>
                         </h4>
                     </a>
@@ -37,6 +37,14 @@
                         <h4>
                             <img class="nav-png" th:src="@{/icons/report.svg}" alt="Reports">
                             <span> Reports</span>
+                        </h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/history}">
+                        <h4>
+                            <img class="nav-png" th:src="@{/icons/history.svg}" alt="History">
+                            <span> History</span>
                         </h4>
                     </a>
                 </li>
