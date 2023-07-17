@@ -41,16 +41,32 @@
                     <h3>Category </h3>
                 </td>
                 <td>
-                    <div class="accordeon">
-                    <span class="accordeon-header" id="category">Select Category</span>
-                        <div class="accordeon-body hide">
-                        </div>
-                    </div>
+                    <label>
+                        <input class="select-dropdown" id="categories" list="categories-list"/></label>
+                    <datalist id="categories-list">
+                    </datalist>
                 </td>
             </tr>
             <tr class="error">
                 <td colspan="2">
                     <span id="category-error" hidden></span>
+                </td>
+                <td></td>
+            </tr>
+            <tr class="table-row">
+                <td class="new-trans-table-row-left-side">
+                    <h3>SubCategory </h3>
+                </td>
+                <td>
+                    <label>
+                        <input class="select-dropdown" id="subcategories" list="subcategories-list"/></label>
+                    <datalist id="subcategories-list">
+                    </datalist>
+                </td>
+            </tr>
+            <tr class="error">
+                <td colspan="2">
+                    <span id="subcategory-error" hidden></span>
                 </td>
                 <td></td>
             </tr>

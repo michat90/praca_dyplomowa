@@ -7,7 +7,7 @@ public class TransactionMapper {
 
   public static TransactionModel toModel(TransactionEntity entity) {
     return new TransactionModel(entity.getId(), entity.getAmount(), entity.getDate(),
-        entity.getCategory(),entity.getSubCategory(),entity.getTag(),
+        entity.getCategory(),entity.getSubcategory(),entity.getTag(),
             entity.getTitle());
   }
 
@@ -18,7 +18,7 @@ public class TransactionMapper {
     entity.setAmount(model.getAmount());
     entity.setDate(model.getDate());
     entity.setCategory(model.getCategory());
-    entity.setSubCategory(model.getSubCategory());
+    entity.setSubcategory(model.getSubcategory());
     entity.setTag(model.getTag());
     entity.setTitle(model.getTitle());
     return entity;

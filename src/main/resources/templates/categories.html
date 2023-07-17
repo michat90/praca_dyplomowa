@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: template (~{:: #categories-page})}">
+<div id="categories-page">
+    <div class="categories-container">
+        <div>
+            <label>
+                <input class="select-dropdown" id="categories-editor"
+                       placeholder="Please select category" list="categories-editor-list"/>
+            </label>
+            <datalist id="categories-editor-list">
+            </datalist>
+        </div>
+        <div id="subcategories-container">
+
+        </div>
+
+    </div>
+</div>
+
+</html>

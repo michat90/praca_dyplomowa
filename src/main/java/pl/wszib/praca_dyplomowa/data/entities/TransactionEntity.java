@@ -3,10 +3,11 @@ package pl.wszib.praca_dyplomowa.data.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
+
 
 @Entity
-@Table(name = "pizzas")
+@Table(name = "transaction")
 public class TransactionEntity {
     @Id
     @GeneratedValue
@@ -18,12 +19,13 @@ public class TransactionEntity {
     private Date date;
     @Column(name = "Category")
     private String category;
-    @Column(name = "SubCategory")
-    private String subCategory;
+    @Column(name = "Subcategory")
+    private String subcategory;
     @Column(name = "Tag")
     private String tag;
     @Column(name = "Title")
     private String title;
+
 
     public Long getId() {
         return id;
@@ -57,12 +59,12 @@ public class TransactionEntity {
         this.category = category;
     }
 
-    public String getSubCategory() {
-        return subCategory;
+    public String getSubcategory() {
+        return subcategory;
     }
 
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
+    public void setSubcategory(String subCategory) {
+        this.subcategory = subCategory;
     }
 
     public String getTag() {

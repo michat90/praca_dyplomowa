@@ -3,7 +3,7 @@ package pl.wszib.praca_dyplomowa.web.models;
 
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 public class TransactionModel {
 
@@ -15,7 +15,7 @@ public class TransactionModel {
 
     private String category;
 
-    private String subCategory;
+    private String subcategory;
 
     private String tag;
 
@@ -29,7 +29,7 @@ public class TransactionModel {
         this.amount = amount;
         this.date = ingredients;
         this.category = category;
-        this.subCategory = subCategory;
+        this.subcategory = subCategory;
         this.tag = tag;
         this.title = title;
     }
@@ -66,12 +66,12 @@ public class TransactionModel {
         this.category = category;
     }
 
-    public String getSubCategory() {
-        return subCategory;
+    public String getSubcategory() {
+        return subcategory;
     }
 
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
     }
 
     public String getTag() {

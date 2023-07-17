@@ -1,104 +1,60 @@
-window.onload = function () {
-    const obj = {
-        Cars:  [
-                "1 Volvo",
-                "Saab",
-                "Audi A3",
-                "Audi A4",
-                "Audi A5"
-            ],
-        Food: {
-            Fruits: [
-                "Orange",
-                "Apple",
-                "Banana"
-            ],
-            SaltyFoods: [
-                "Pretzels",
-                "Burger",
-                "Noodles"
-            ],
-            Drinks: "Water"
+window.addEventListener("load", function (event) {
+    let container = document.getElementsByClassName("categories-container")
+    let category = document.getElementById("categories-editor")
+    let URL = 'http://localhost:8080/categories'
+
+    getCategories()
+
+    category.addEventListener("change",function () {
+        getSubcategories()
+    });
+
+    async function getRequest() {
+        return fetch(URL + '/json-cat', {
+            method: "GET",
+        });
+    }
+
+    function getCategories() {
+        getRequest()
+            .then((response) => response.json())
+            .then((json) => {
+                addCategoriesToDropdown(json);
+            });
+    }
+
+    function addCategoriesToDropdown(array) {
+        let select = document.getElementById("categories-editor-list")
+        for (let i = 0; i < array.length; i++) {
+            select.innerHTML +=
+                "<option>" + array[i].category + "</option>";
         }
-    };
-
-    initAccordeon(obj);   // <--------------------------- Call initialization
-
-
-    function accordeonAddEvents() {
-        Array.from(document.getElementsByClassName("accordeon-header")).forEach(function (header) {
-            if (header.getAttribute("listener") !== "true") {
-                header.addEventListener("click", function () {
-                    this.parentNode.getElementsByClassName("accordeon-body")[0].classList.toggle("hide");
-                });
-                header.setAttribute("listener", "true");
-            }
-        });
-        Array.from(document.getElementsByClassName("button-group")).forEach(function (but) {
-            if (but.getAttribute("listener") !== "true") {
-                but.addEventListener("click", function () {
-                    if (this.getAttribute("depth") === "-1") {
-                        let header = this;
-                        while ((header = header.parentElement) && header.className !== "accordeon") ;
-                        let mainHeader = this.parentNode.previousSibling
-                        header.getElementsByClassName("accordeon-header")[0].innerHTML = mainHeader.innerHTML + "/" + this.innerHTML;
-                        document.getElementsByClassName("accordeon-body")[0].classList.toggle("hide");
-                        return;
-                    }
-                    const groups = Array.from(this.parentNode.getElementsByClassName("accordeon-group"));
-                    groups.forEach(g => {
-                        if (g.getAttribute("uuid") === this.getAttribute("uuid") &&
-                            g.getAttribute("depth") === this.getAttribute("depth")) {
-                            g.classList.toggle("hide");
-                        }
-                    });
-                });
-                but.setAttribute("listener", "true");
-            }
-        });
     }
 
-    function initAccordeon(data) {
-
-        accordeons = Array.from(document.getElementsByClassName("accordeon-body"));
-        accordeons.forEach(acc => {
-            acc.innerHTML = "";
-            const route = (subObj, keyIndex = 0, parent = acc, depth = 0) => {
-                const keys = Object.keys(subObj);
-                if (typeof subObj === 'object' && !Array.isArray(subObj) && keys.length > 0) {
-                    while (keyIndex < keys.length) {
-                        var but = document.createElement("button");
-                        but.className = "button-group";
-                        but.setAttribute("uuid", keyIndex);
-                        but.setAttribute("depth", depth);
-                        but.innerHTML = keys[keyIndex];
-                        var group = document.createElement("div");
-                        group.className = "accordeon-group hide";
-                        group.setAttribute("uuid", keyIndex);
-                        group.setAttribute("depth", depth);
-                        route(subObj[keys[keyIndex]], 0, group, depth + 1);
-                        keyIndex++;
-                        parent.append(but);
-                        parent.append(group);
-                    }
-                } else {
-                    if (!Array.isArray(subObj)) subObj = [subObj];
-                    subObj.forEach((e, i) => {
-                        if (typeof e === 'object') {
-                            route(e, 0, parent, depth);
-                        } else {
-                            var but = document.createElement("button");
-                            but.className = "button-group";
-                            but.setAttribute("uuid", i);
-                            but.setAttribute("depth", "-1");
-                            but.innerHTML = e;
-                            parent.append(but);
-                        }
-                    });
-                }
-            };
-            route(data);
-        });
-        accordeonAddEvents();
+    function getSubcategories () {
+        getRequest()
+            .then((response) => response.json())
+            .then((json) => {
+                let categoryName = document.getElementById("categories-editor");
+                addSubCategories(json,categoryName.value);
+            });
     }
-}
+
+    function addSubCategories(array,categoryName) {
+        let container = document.getElementById("subcategories-container");
+        // removeAllChildNodes(container);
+        // document.getElementById("subcategories").value = "";
+        for (let i = 0; i < array.length; i++) {
+            console.log(array[i].category === categoryName)
+            if (array[i].category === categoryName) {
+                container.innerHTML +=
+                    "<p>" + array[i].subCategory + "</p>";
+            }
+        }
+    }
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+});
