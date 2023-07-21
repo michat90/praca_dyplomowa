@@ -6,35 +6,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.wszib.praca_dyplomowa.services.CategoriesService;
+import pl.wszib.praca_dyplomowa.services.SubcategoriesService;
 import pl.wszib.praca_dyplomowa.web.models.CategoriesModel;
-import pl.wszib.praca_dyplomowa.web.models.TransactionModel;
+import pl.wszib.praca_dyplomowa.web.models.SubcategoriesModel;
 
 import java.util.List;
 
 @Controller
 public class CategoriesController {
 
+    private final SubcategoriesService subcategoriesService;
     private final CategoriesService categoriesService;
 
-    public CategoriesController(CategoriesService categoriesService) {
+    public CategoriesController(SubcategoriesService subcategoriesService, CategoriesService categoriesService) {
+        this.subcategoriesService = subcategoriesService;
         this.categoriesService = categoriesService;
     }
 
     @GetMapping("/categories")
-    public String categoriesOverview(Model model) {
-        List<CategoriesModel> categories = categoriesService.findAll();
+    public String subcategoriesOverview(Model model) {
+        List<SubcategoriesModel> categories = subcategoriesService.findAll();
         model.addAttribute("categories", categories);
         return "categories";
     }
 
-//    @GetMapping("/categories-editor")
-//    public String categoriesEditor(Model model) {
-//        List<CategoriesModel> categories = categoriesService.findAll();
-//        model.addAttribute("categories", categories);
-//        return "categoriesEditor";
-//    }
+    @GetMapping("/subcategories/json")
+    public ResponseEntity<List<SubcategoriesModel>> getSubcategories() {
 
-    @GetMapping("/categories/json-cat")
+        return new ResponseEntity(subcategoriesService.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/categories/json")
     public ResponseEntity<List<CategoriesModel>> getCategories() {
 
         return new ResponseEntity(categoriesService.findAll(), HttpStatus.OK);

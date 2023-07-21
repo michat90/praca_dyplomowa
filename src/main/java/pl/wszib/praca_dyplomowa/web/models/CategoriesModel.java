@@ -1,22 +1,16 @@
 package pl.wszib.praca_dyplomowa.web.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
 public class CategoriesModel {
 
     private Long id;
     private String category;
-    private String subCategory;
 
     public CategoriesModel() {
     }
 
-    public CategoriesModel(Long id, String category, String subCategory) {
+    public CategoriesModel(Long id, String category) {
         this.id = id;
         this.category = category;
-        this.subCategory = subCategory;
     }
 
     public Long getId() {
@@ -35,11 +29,5 @@ public class CategoriesModel {
         this.category = category;
     }
 
-    public String getSubCategory() {
-        return subCategory;
-    }
 
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
 }

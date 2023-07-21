@@ -13,8 +13,6 @@ public class CategoryEntity {
     private Long id;
     @Column(name = "category")
     private String category;
-    @Column(name = "subcategory")
-    private String subCategory;
 
     public Long getId() {
         return id;
@@ -32,11 +30,4 @@ public class CategoryEntity {
         this.category = category;
     }
 
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
 }

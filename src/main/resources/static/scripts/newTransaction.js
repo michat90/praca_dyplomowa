@@ -123,15 +123,15 @@ window.addEventListener("load",function(event) {
         window.location = URL+'new-transaction'
     }
 
-    async function getRequest (){
-        return fetch(URL + 'categories/json-cat', {
+    async function getRequest (requestUrl){
+        return fetch(URL + requestUrl, {
         method: "GET",
     });
     }
 
 
     function getCategories () {
-        getRequest()
+        getRequest('categories/json')
             .then((response) => response.json())
             .then((json) => {
                 addCategories(json);
@@ -139,7 +139,7 @@ window.addEventListener("load",function(event) {
     }
 
     function getSubcategories () {
-        getRequest()
+        getRequest("subcategories/json")
             .then((response) => response.json())
             .then((json) => {
                 let categoryName = document.getElementById("categories");
@@ -163,9 +163,10 @@ window.addEventListener("load",function(event) {
         let select = document.getElementById("subcategories-list");
         removeAllChildNodes(select);
         document.getElementById("subcategories").value = "";
+        console.log(array)
         for (let i = 0; i < array.length; i++) {
-            console.log(array[i].category === categoryName)
-            if (array[i].category === categoryName) {
+            console.log(array[i].categoryEntity["category"] === categoryName)
+            if (array[i].categoryEntity["category"] === categoryName) {
                 select.innerHTML +=
                     "<option>" + array[i].subCategory + "</option>";
             }
