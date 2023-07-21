@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<section id="categories-editor-page" th:fragment="categoriesEditor">
+    <h4 class="page-title">EDITOR</h4>
+    <div class="separator"></div>
+    <form id="categories-editor-content">
+        <div class="editor-row">
+            <label for="editor-subcategory" class="editor-label">Name</label>
+            <input type="text" id="editor-subcategory" class="editor-input" value="Insert name" >
+        </div>
+        <div class="separator"></div>
+        <div class="editor-row">
+            <label for="editor-category" class="editor-label">Main category</label>
+            <input class="editor-input" id="editor-category" list="editor-categories-list"/>
+            <datalist id="editor-categories-list">
+            </datalist>
+        </div>
+        <div class="separator"></div>
+        <div class="editor-checkbox-row">
+            <label for="editor-income">Income</label>
+            <input type="checkbox" id="editor-income">
+            <label for="editor-expense">Expence</label>
+            <input type="checkbox" id="editor-expense">
+        </div>
+        <div class="separator"></div>
+        <div class="editor-btn-row">
+            <p id="editor-btn-submit">SUBMIT</p>
+            <p id="editor-btn-clear">CLEAR</p>
+        </div>
+    </form>
+</section>
+
+</html>

@@ -1,11 +1,14 @@
 
 window.addEventListener("load",function(event) {
+    let URL = 'http://localhost:8080/'
+    if (window.location.href.match(URL + 'new-transaction') == null) {
+        return false;
+    }
     let submit = document.getElementById("btn-submit");
     let amount = document.getElementById("amount");
     let datepicker = document.getElementById("datepicker");
     let title = document.getElementById("title");
     let tag = document.getElementById("tag");
-    let URL = 'http://localhost:8080/new-transaction'
     let category = document.getElementById("categories")
 
     getCategories()
@@ -87,9 +90,8 @@ window.addEventListener("load",function(event) {
     }
 
     function setHiddenAtribute(element) {
-
         if (element.getAttribute('hidden') !== null) {
-            console.log("dksnfksdkfksdf")
+            element.hidden = true
         }
 
     }
@@ -110,7 +112,7 @@ window.addEventListener("load",function(event) {
             title: tag.value
         }
         console.log(data)
-        fetch(URL, {
+        fetch(URL+'new-transaction', {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -118,11 +120,11 @@ window.addEventListener("load",function(event) {
             },
             body: JSON.stringify(data)
         })
-        window.location = URL
+        window.location = URL+'new-transaction'
     }
 
     async function getRequest (){
-        return fetch(URL + '/json-cat', {
+        return fetch(URL + 'categories/json-cat', {
         method: "GET",
     });
     }
@@ -132,7 +134,7 @@ window.addEventListener("load",function(event) {
         getRequest()
             .then((response) => response.json())
             .then((json) => {
-                addCategoriesToDropdown(json);
+                addCategories(json);
             });
     }
 
@@ -145,16 +147,20 @@ window.addEventListener("load",function(event) {
             });
     }
 
-    function addCategoriesToDropdown(array) {
+    function addCategories(array) {
         let select = document.getElementById("categories-list")
+        let arr = []
         for (let i = 0; i < array.length; i++) {
-            select.innerHTML +=
-                "<option>" + array[i].category + "</option>";
+            if (!arr.includes(array[i].category)) {
+                arr.push(array[i].category)
+                select.innerHTML +=
+                    "<option>" + array[i].category + "</option>";
+            }
         }
     }
 
     function addSubCategories(array,categoryName) {
-        let select = document.getElementById("subcategories-container");
+        let select = document.getElementById("subcategories-list");
         removeAllChildNodes(select);
         document.getElementById("subcategories").value = "";
         for (let i = 0; i < array.length; i++) {

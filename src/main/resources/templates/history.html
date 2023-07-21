@@ -3,58 +3,63 @@
       th:replace="~{fragments/layout :: template (~{:: #history-page})}">
 <section id="history-page" style="height: 100%; overflow-y: scroll">
     <div>
-        <label>
-            <input list="browsers" name="myBrowser" /></label>
-        <datalist id="browsers">
-            <option value="Chrome">
-            <option value="Firefox">
-            <option value="Internet Explorer">
-            <option value="Opera">
-            <option value="Safari">
-            <option value="Microsoft Edge">
-        </datalist>
+        <div id="history-filters">
+            <label>
+                <input list="browsers" name="myBrowser" /></label>
+            <datalist id="browsers">
+                <option value="Chrome">
+                <option value="Firefox">
+                <option value="Internet Explorer">
+                <option value="Opera">
+                <option value="Safari">
+                <option value="Microsoft Edge">
+            </datalist>
+        </div>
     </div>
-    <ul>
-        <li class="table-header">
-            <div class="col-1">ID</div>
-            <div class="col-2">
-                <div>Category</div>
-                <div>Subcategory</div>
-            </div>
-            <div class="col-3">
-                <div>Amount</div>
-                <div>Title</div>
-                <div>Tag</div>
-            </div>
-            <div class="col-4">Date</div>
-            <div class="col-5"></div>
-        </li>
-        <li class="table-row-history" th:each="transaction : ${transactions}">
-            <div class="col-1">
-                <span class="id-history" th:text="${transaction.id}"></span>
-            </div>
-            <div class="col-2">
-                <div class="category-history" th:text="${transaction.category}"></div>
-                <div class="subcategory-history" th:text="${transaction.subcategory}"></div>
-            </div>
-            <div class="col-3">
-                <div>
-                    <span class="amount-history" th:text="|${transaction.amount} zł|"></span>
+    <div >
+        <ul id="history-table">
+            <li class="table-header">
+                <div class="col-1">ID</div>
+                <div class="col-2">
+                    <div>Category</div>
+                    <div>Subcategory</div>
                 </div>
-                <div>
-                    <span class="title-history" th:text="${transaction.title}"></span>
+                <div class="col-3">
+                    <div>Amount</div>
+                    <div>Title</div>
+                    <div>Tag</div>
                 </div>
-                <div>
-                    <span class="tag-history" th:text="${transaction.tag}"></span>
+                <div class="col-4">Date</div>
+                <div class="col-5">Action</div>
+            </li>
+            <li class="table-row-history" th:each="transaction : ${transactions}">
+                <div class="col-1">
+                    <span class="id-history" th:text="${transaction.id}"></span>
                 </div>
-            </div>
-            <div class="col-4" th:text="${transaction.date}"></div>
+                <div class="col-2">
+                    <div class="category-history" th:text="${transaction.category}"></div>
+                    <div class="subcategory-history" th:text="${transaction.subcategory}"></div>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <span class="amount-history" th:text="|${transaction.amount} zł|"></span>
+                    </div>
+                    <div>
+                        <span class="title-history" th:text="${transaction.title}"></span>
+                    </div>
+                    <div>
+                        <span class="tag-history" th:text="${transaction.tag}"></span>
+                    </div>
+                </div>
+                <div class="col-4" th:text="${transaction.date}"></div>
 
-            <div class="edit-btn col col-5">
-                <img class="nav-png" th:src="@{/icons/delete.svg}" alt="Delete">
-                <img class="nav-png" th:src="@{/icons/edit.svg}" alt="Edit">
-            </div>
-        </li>
-    </ul>
+                <div class="edit-btn col col-5">
+                    <img class="nav-png" th:src="@{/icons/delete.svg}" alt="Delete">
+                    <img class="nav-png" th:src="@{/icons/edit.svg}" alt="Edit">
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </section>
 </html>

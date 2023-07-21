@@ -28,14 +28,6 @@ public class TransactionController {
         return "newTransaction";
     }
 
-    @GetMapping("/new-transaction/json-cat")
-    public ResponseEntity<List<CategoriesModel>> getCategories() {
-
-        return new ResponseEntity(categoriesService.findAll(), HttpStatus.OK);
-    }
-
-
-
     @PostMapping("/new-transaction")
     @ResponseBody
     public String addTransaction(@RequestBody TransactionModel transactionModel) {

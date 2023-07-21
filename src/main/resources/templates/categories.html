@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
       th:replace="~{fragments/layout :: template (~{:: #categories-page})}">
+
 <div id="categories-page">
-    <div class="categories-container">
-        <div>
-            <label>
-                <input class="select-dropdown" id="categories-editor"
-                       placeholder="Please select category" list="categories-editor-list"/>
-            </label>
-            <datalist id="categories-editor-list">
-            </datalist>
+    <div id="search-content">
+        <h4 class="page-title">Categories overview</h4>
+        <div class="separator"></div>
+        <div class="categories-search-panel">
+                <input class='editor-input' type="search" oninput="setTimeout(function(){liveSearch();},500);"
+                       id="searchbox" placeholder="Please select category">
+            <div class="categories-btn" id="categories-edit-btn">+</div>
         </div>
-        <div id="subcategories-container">
+<!--        <div class="separator"></div>-->
+        <div id="card-list">
 
         </div>
-
+    </div>
+    <div  id="categories-editor" class="hidden-box">
+        <div th:replace="~{fragments/categoriesEditor :: categoriesEditor}">
+        </div>
     </div>
 </div>
 

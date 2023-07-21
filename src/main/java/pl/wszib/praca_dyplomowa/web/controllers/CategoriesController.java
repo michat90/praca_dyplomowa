@@ -21,11 +21,18 @@ public class CategoriesController {
     }
 
     @GetMapping("/categories")
-    public String opinionForm(Model model) {
+    public String categoriesOverview(Model model) {
         List<CategoriesModel> categories = categoriesService.findAll();
         model.addAttribute("categories", categories);
         return "categories";
     }
+
+//    @GetMapping("/categories-editor")
+//    public String categoriesEditor(Model model) {
+//        List<CategoriesModel> categories = categoriesService.findAll();
+//        model.addAttribute("categories", categories);
+//        return "categoriesEditor";
+//    }
 
     @GetMapping("/categories/json-cat")
     public ResponseEntity<List<CategoriesModel>> getCategories() {

@@ -1,16 +1,21 @@
 window.addEventListener("load", function (event) {
-    let container = document.getElementsByClassName("categories-container")
-    let category = document.getElementById("categories-editor")
-    let URL = 'http://localhost:8080/categories'
-
+    let URL = 'http://localhost:8080/'
+    if (window.location.href.match(URL + 'categories') == null) {
+        return false;
+    }
     getCategories()
-
-    category.addEventListener("change",function () {
-        getSubcategories()
+    let btn = document.getElementById('categories-edit-btn')
+    btn.addEventListener('click',function () {
+        let editor = document.getElementById('categories-editor')
+        if (editor.classList.contains('hidden-box')) {
+            editor.classList.remove('hidden-box');
+        } else {
+            editor.classList.add('hidden-box');
+        }
     });
 
     async function getRequest() {
-        return fetch(URL + '/json-cat', {
+        return fetch(URL + 'categories/json-cat', {
             method: "GET",
         });
     }
@@ -19,42 +24,37 @@ window.addEventListener("load", function (event) {
         getRequest()
             .then((response) => response.json())
             .then((json) => {
-                addCategoriesToDropdown(json);
+                addCategoriesToBox(json);
             });
     }
 
-    function addCategoriesToDropdown(array) {
-        let select = document.getElementById("categories-editor-list")
+    function addCategoriesToBox(array) {
+        let select = document.getElementById("card-list")
         for (let i = 0; i < array.length; i++) {
-            select.innerHTML +=
-                "<option>" + array[i].category + "</option>";
-        }
-    }
-
-    function getSubcategories () {
-        getRequest()
-            .then((response) => response.json())
-            .then((json) => {
-                let categoryName = document.getElementById("categories-editor");
-                addSubCategories(json,categoryName.value);
-            });
-    }
-
-    function addSubCategories(array,categoryName) {
-        let container = document.getElementById("subcategories-container");
-        // removeAllChildNodes(container);
-        // document.getElementById("subcategories").value = "";
-        for (let i = 0; i < array.length; i++) {
-            console.log(array[i].category === categoryName)
-            if (array[i].category === categoryName) {
-                container.innerHTML +=
-                    "<p>" + array[i].subCategory + "</p>";
-            }
-        }
-    }
-    function removeAllChildNodes(parent) {
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
+            //main row
+            let row = document.createElement('div')
+            row.classList.add('category')
+            //box to add columns
+            let box = document.createElement('div')
+            box.classList.add('category-col')
+            //column with categories names
+            let col = document.createElement('div')
+            col.classList.add('category-col-values')
+            //categories box
+            let cat = document.createElement('p')
+            cat.innerText = array[i].category
+            col.appendChild(cat)
+            //subcategory box
+            cat = document.createElement('p')
+            cat.innerText = array[i].subCategory
+            col.appendChild(cat)
+            box.appendChild(col)
+            row.appendChild(box)
+            let separator = document.createElement('div')
+            separator.classList.add('separator')
+            row.appendChild(separator)
+            select.appendChild(row)
         }
     }
 });
+
