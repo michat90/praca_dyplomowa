@@ -16,8 +16,12 @@ public class SubcategoryEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
-//    @Column(name = "subcategory")
-//    private String subCategory;
+
+    @Column(name = "color")
+    private String color;
+
+    @Column(name = "operation_type")
+    private String operationType;
 
     public Long getId() {
         return id;
@@ -41,5 +45,21 @@ public class SubcategoryEntity {
 
     public void setCategoryEntity(CategoryEntity categoryEntity) {
         this.categoryEntity = categoryEntity;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
     }
 }

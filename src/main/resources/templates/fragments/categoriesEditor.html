@@ -4,17 +4,34 @@
 <section id="categories-editor-page" th:fragment="categoriesEditor">
     <h4 class="page-title">EDITOR</h4>
     <div class="separator"></div>
+    <div class="is-hidden">
+        <h5 id="editor-subcategory-id"></h5>
+        <div class="separator"></div>
+    </div>
     <form id="categories-editor-content">
         <div class="editor-row">
             <label for="editor-subcategory" class="editor-label">Name</label>
-            <input type="text" id="editor-subcategory" class="editor-input" value="Insert name" >
+            <input type="text" id="editor-subcategory" class="editor-input" >
         </div>
+        <span class="error hide" id="editor-error-category">Category cannot be empty</span>
         <div class="separator"></div>
         <div class="editor-row">
             <label for="editor-category" class="editor-label">Main category</label>
-            <input class="editor-input" id="editor-category" list="editor-categories-list" value="Choose main category"/>
+            <input class="editor-input" id="editor-category" list="editor-categories-list" />
             <datalist id="editor-categories-list">
             </datalist>
+        </div>
+        <div class="separator"></div>
+        <div class="editor-row">
+            <label class="editor-label">Color</label>
+            <div class="color">
+                <div class="box" id="color-picker"></div>
+                <div class="box hide" id="color-palette">
+                    <div id="color-grid">
+                    </div>
+
+                </div>
+            </div>
         </div>
         <div class="separator"></div>
         <div class="editor-checkbox-row">
@@ -23,6 +40,7 @@
             <label for="editor-expense">Expence</label>
             <input type="checkbox" id="editor-expense">
         </div>
+        <span class="error hide" id="editor-error-operation-type">Choose operation type</span>
         <div class="separator"></div>
         <div class="editor-btn-row">
             <p class="editor-btn" id="editor-btn-submit">SUBMIT</p>

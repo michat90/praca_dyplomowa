@@ -15,9 +15,9 @@ window.addEventListener("load", function (event) {
         } else {
             editor.classList.add('hidden-box');
             let input = document.getElementById('editor-category')
-            input.value = "Choose main category"
+            input.value = ""
             input = document.getElementById('editor-subcategory')
-            input.value = "Insert name"
+            input.value = ""
         }
     });
 
@@ -93,14 +93,23 @@ window.addEventListener("load", function (event) {
     }
 
     incomeCheckBox.addEventListener('change', function () {
-        if (incomeCheckBox.checked == true) {
+        if (incomeCheckBox.checked === true) {
             expenseCheckBox.checked = false
         }
     });
     expenseCheckBox.addEventListener('change', function () {
-        if (expenseCheckBox.checked == true) {
+        if (expenseCheckBox.checked === true) {
             incomeCheckBox.checked = false
         }
     });
+
+    let submit = document.getElementById('editor-btn-submit')
+    submit.addEventListener('click',function () {
+
+    });
+
+    function validForm() {
+
+    }
 });
 

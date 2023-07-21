@@ -14,6 +14,13 @@ public class CategoryEntity {
     @Column(name = "category")
     private String category;
 
+    @Column(name = "color")
+    private String color;
+
+    @Column(name = "operation_type")
+    private String operationType;
+
+
     public Long getId() {
         return id;
     }
@@ -30,4 +37,19 @@ public class CategoryEntity {
         this.category = category;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
+    }
 }
