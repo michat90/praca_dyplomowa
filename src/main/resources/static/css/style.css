@@ -601,7 +601,6 @@ li {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #1E87F0;
 }
 
 #color-palette{
@@ -629,6 +628,7 @@ li {
     margin-right: 10px;
     border: 1px solid whitesmoke;
     cursor: grab;
+    background-color: #1E87F0;
 }
 
 .color-circle {

@@ -5,7 +5,7 @@ import pl.wszib.praca_dyplomowa.web.models.SubcategoriesModel;
 
 public class SubcategoriesMapper {
     public static SubcategoriesModel toModel(SubcategoryEntity entity) {
-        return new SubcategoriesModel(entity.getId(), entity.getCategoryEntity(), entity.getSubcategory(),
+        return new SubcategoriesModel(entity.getId(), entity.getCategoryEntity(), entity.getSubCategory(),
                 entity.getColor(),entity.getOperationType());
     }
 
@@ -13,7 +13,7 @@ public class SubcategoriesMapper {
         final var entity = new SubcategoryEntity();
 
         entity.setCategoryEntity(model.getCategoryEntity());
-        entity.setSubcategory(model.getSubCategory());
+        entity.setSubCategory(model.getSubCategory());
         entity.setColor((model.getColor()));
         entity.setOperationType(model.getOperationType());
         return entity;

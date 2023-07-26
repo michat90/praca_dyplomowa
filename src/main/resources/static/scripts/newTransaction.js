@@ -25,7 +25,7 @@ window.addEventListener("load",function(event) {
 
 
     function validForm() {
-        let valid = true
+        let valid = true;
         let amountError = document.getElementById("amount-error");
         if (!checkAmount()) {
             valid = false

@@ -1,6 +1,8 @@
 package pl.wszib.praca_dyplomowa.data.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 
 @Entity
@@ -12,8 +14,10 @@ public class SubcategoryEntity {
     @Column(name = "id")
     private Long id;
     @Column(name = "subcategory")
-    private String subcategory;
-    @OneToOne(cascade = CascadeType.ALL)
+    private String subCategory;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @NotFound(
+            action = NotFoundAction.IGNORE)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
@@ -31,12 +35,12 @@ public class SubcategoryEntity {
         this.id = id;
     }
 
-    public String getSubcategory() {
-        return subcategory;
+    public String getSubCategory() {
+        return subCategory;
     }
 
-    public void setSubcategory(String subcategory) {
-        this.subcategory = subcategory;
+    public void setSubCategory(String subcategory) {
+        this.subCategory = subcategory;
     }
 
     public CategoryEntity getCategoryEntity() {

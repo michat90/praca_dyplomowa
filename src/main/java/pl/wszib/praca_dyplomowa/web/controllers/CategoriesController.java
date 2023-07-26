@@ -4,11 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.wszib.praca_dyplomowa.services.CategoriesService;
 import pl.wszib.praca_dyplomowa.services.SubcategoriesService;
 import pl.wszib.praca_dyplomowa.web.models.CategoriesModel;
 import pl.wszib.praca_dyplomowa.web.models.SubcategoriesModel;
+import pl.wszib.praca_dyplomowa.web.models.TransactionModel;
 
 import java.util.List;
 
@@ -33,11 +34,20 @@ public class CategoriesController {
     @GetMapping("/subcategories/json")
     public ResponseEntity<List<SubcategoriesModel>> getSubcategories() {
 
-        return new ResponseEntity(subcategoriesService.findAll(), HttpStatus.OK);
+        return new ResponseEntity(subcategoriesService.listAll(), HttpStatus.OK);
     }
     @GetMapping("/categories/json")
     public ResponseEntity<List<CategoriesModel>> getCategories() {
 
         return new ResponseEntity(categoriesService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/subcategories/{category_Id}")
+    @ResponseBody
+    public String addTransaction(@RequestBody SubcategoriesModel subcategoriesModel,
+                                 @PathVariable("category_Id") Long categoryID) {
+        final var orderId = subcategoriesService.saveSubcategories(categoryID, subcategoriesModel);
+
+        return "redirect:categories";
     }
 }

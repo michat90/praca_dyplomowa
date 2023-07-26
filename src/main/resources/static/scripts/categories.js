@@ -7,11 +7,14 @@ window.addEventListener("load", function (event) {
     let btn = document.getElementById('categories-edit-btn')
     let incomeCheckBox = document.getElementById("editor-income")
     let expenseCheckBox = document.getElementById("editor-expense")
+    let id;
     btn.addEventListener('click', function () {
         let editor = document.getElementById('categories-editor')
         if (editor.classList.contains('hidden-box')) {
             editor.classList.remove('hidden-box');
+            expenseCheckBox.checked = true;
             getCategories()
+            document.getElementById('color-picker').style.backgroundColor = '#1E87F0'
         } else {
             editor.classList.add('hidden-box');
             let input = document.getElementById('editor-category')
@@ -76,15 +79,15 @@ window.addEventListener("load", function (event) {
     function addCategories(array) {
         let select = document.getElementById("editor-categories-list")
         removeAllChildNodes(select)
-        let arr = []
         for (let i = 0; i < array.length; i++) {
-            if (!arr.includes(array[i].category)) {
-                arr.push(array[i].category)
-                select.innerHTML +=
-                    "<option>" + array[i].category + "</option>";
-            }
+                let newRow = document.createElement('option')
+                newRow.value = array[i].category
+                newRow.setAttribute('id','editor-cat#' + array[i].id)
+                newRow.classList.add('editor-category-list')
+                select.appendChild(newRow)
         }
     }
+
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -105,11 +108,85 @@ window.addEventListener("load", function (event) {
 
     let submit = document.getElementById('editor-btn-submit')
     submit.addEventListener('click',function () {
-
+        if (validForm()) {
+            postRequest()
+        }
     });
 
     function validForm() {
-
+        let categoryName = document.getElementById('editor-subcategory');
+        let categoryError = document.getElementById('editor-error-category');
+        let valid = true;
+        if (categoryName.value=== '') {
+            valid = false;
+            setHiddenAttribute(categoryError, true);
+        } else {
+            setHiddenAttribute(categoryError)
+        }
+        return valid;
     }
+
+    function setHiddenAttribute(element, blnError = false) {
+        if (blnError)  {
+            element.removeAttribute('hidden');
+        } else {
+            element.hidden = true;
+        }
+    }
+
+    function postRequest() {
+        let categoryName = document.getElementById('editor-subcategory')
+        let color = document.getElementById('color-picker')
+        let categoryId = getIdOfDatalist();
+        const data = {
+            subCategory: categoryName.value,
+            color: color.style.backgroundColor,
+            operationType: getOperationType(),
+        }
+        fetch(URL + 'subcategories/' + categoryId, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        window.location = URL + 'categories'
+    }
+
+    function getOperationType() {
+        if (incomeCheckBox.checked === true) {
+            return 'income'
+        } else {
+            return 'expence'
+        }
+    }
+
+    function getIdOfDatalist(datalist_id,input_id){
+        let input = document.getElementById('editor-category')
+        let catId;
+        Array.from(document.getElementsByClassName("editor-category-list")).forEach(function(element) {
+            if (element.value === input.value) {
+                let id = element.id.split('#')
+                catId = id[1]
+            }
+        });
+        return Number(catId);
+    }
+
+    // async function getCategoryId() {
+    //     try {
+    //         const response = await fetch(URL + 'categories/json');
+    //         const data = await response.json();
+    //         let mainCategoryName = document.getElementById('editor-category')
+    //         for (let i = 0; i < data.length; i++) {
+    //             if (data[i].category === mainCategoryName.value) {
+    //                  return data[i].id;
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 });
 
