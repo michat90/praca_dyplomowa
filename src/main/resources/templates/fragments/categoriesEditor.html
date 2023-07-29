@@ -4,8 +4,8 @@
 <section id="categories-editor-page" th:fragment="categoriesEditor">
     <h4 class="page-title">EDITOR</h4>
     <div class="separator"></div>
-    <div class="is-hidden">
-        <h5 id="editor-subcategory-id"></h5>
+    <div class="is-hidden" id="editor-id-div">
+        <h5 id="editor-subcategory-id" ></h5>
         <div class="separator"></div>
     </div>
     <form id="categories-editor-content">
@@ -13,7 +13,7 @@
             <label for="editor-subcategory" class="editor-label">Name</label>
             <input type="text" id="editor-subcategory" class="editor-input" >
         </div>
-        <span class="error" id="editor-error-category" hidden>Category cannot be empty</span>
+        <span class="error" id="editor-error-category" hidden></span>
         <div class="separator"></div>
         <div class="editor-row">
             <label for="editor-category" class="editor-label">Main category</label>
@@ -21,6 +21,7 @@
             <datalist id="editor-categories-list">
             </datalist>
         </div>
+        <span class="error" id="editor-error-maincategory" hidden></span>
         <div class="separator"></div>
         <div class="editor-row">
             <label class="editor-label">Color</label>

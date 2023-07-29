@@ -31,23 +31,17 @@ public class CategoriesController {
         return "categories";
     }
 
-    @GetMapping("/subcategories/json")
-    public ResponseEntity<List<SubcategoriesModel>> getSubcategories() {
-
-        return new ResponseEntity(subcategoriesService.listAll(), HttpStatus.OK);
-    }
     @GetMapping("/categories/json")
     public ResponseEntity<List<CategoriesModel>> getCategories() {
 
         return new ResponseEntity(categoriesService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/subcategories/{category_Id}")
-    @ResponseBody
-    public String addTransaction(@RequestBody SubcategoriesModel subcategoriesModel,
-                                 @PathVariable("category_Id") Long categoryID) {
-        final var orderId = subcategoriesService.saveSubcategories(categoryID, subcategoriesModel);
 
+    @PostMapping("/categories")
+    @ResponseBody
+    public String addTransaction(@RequestBody CategoriesModel categoriesModel) {
+        categoriesService.saveCategory(categoriesModel);
         return "redirect:categories";
     }
 }

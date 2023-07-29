@@ -33,12 +33,14 @@ public class CategoriesService {
                 .toList();
     }
 
+    @Transactional
+    public void saveCategory(CategoriesModel categoriesModel) {
+        final var entity = CategoriesMapper.toEntity(categoriesModel);
+
+        categoriesRepositories.save(entity);
+    }
 
 
-//    public PizzaModel getById(Long pizzaId) {
-//        final var entity = pizzaRepository.findById(pizzaId)
-//                .orElseThrow(EntityNotFoundException::new);
-//
-//        return PizzaMapper.toModel(entity);
-//    }
+
+
 }

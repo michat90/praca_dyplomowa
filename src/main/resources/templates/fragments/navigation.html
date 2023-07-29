@@ -50,18 +50,11 @@
 <!--        onclick="categoriesBtn()-->
         <div class="nav-item" id="categories-btn">
             <a>
-                <p>
+                <a th:href="@{/categories}">
                     <img class="nav-png" th:src="@{/icons/categories.svg}" alt="Categories">
                     <span> Categories</span>
-                </p>
-            </a>
-        </div>
-        <div id="subcategories-btns" hidden>
-            <div class="sub-flex">
-                <a th:href="@{/categories}" id="nav-categories-overview" >
-                    <span class="sub-nav-item">Overview</span>
                 </a>
-            </div>
+            </a>
         </div>
     </div>
 </nav>

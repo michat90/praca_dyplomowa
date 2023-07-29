@@ -33,12 +33,7 @@ public class SubcategoriesService {
                 .toList();
     }
 
-//    @Transactional
-//    public void sendSubcategories(SubcategoriesModel subcategoriesModel) {
-//        final var entity = SubcategoriesMapper.toEntity(subcategoriesModel);
-//
-//        subcategoriesRepositories.save(entity);
-//    }
+
 
     @Transactional
     public Long saveSubcategories(Long categoryId, SubcategoriesModel subcategoriesModel) {
