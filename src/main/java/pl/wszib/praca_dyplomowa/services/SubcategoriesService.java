@@ -37,10 +37,7 @@ public class SubcategoriesService {
 
     @Transactional
     public Long saveSubcategories(Long categoryId, SubcategoriesModel subcategoriesModel) {
-        CategoryEntity categoryEntity = categoriesRepositories.findById(categoryId)
-                .orElseThrow(
-                        EntityNotFoundException::new);
-        System.out.println(subcategoriesModel.getSubCategory());
+        CategoryEntity categoryEntity = getCategoryById(categoryId);
         SubcategoryEntity subcategoryEntity = new SubcategoryEntity();
         subcategoryEntity.setSubCategory(subcategoriesModel.getSubCategory());
         subcategoryEntity.setOperationType(subcategoriesModel.getOperationType());
@@ -55,4 +52,37 @@ public class SubcategoriesService {
     public List<SubcategoryEntity> listAll () {
         return subcategoriesRepositories.listAll();
     }
+
+    public SubcategoryEntity getById (Long subcategoryId) {
+
+        return subcategoriesRepositories.findById(subcategoryId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+    }
+    @Transactional
+    public void editSubcategory(Long categoryId, Long subCategoryId, SubcategoriesModel subcategoriesModel) {
+        SubcategoryEntity subcategoryEntity = subcategoriesRepositories.findById(subCategoryId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+        CategoryEntity categoryEntity = getCategoryById(categoryId);
+
+        subcategoryEntity.setSubCategory(subcategoriesModel.getSubCategory());
+        subcategoryEntity.setOperationType(subcategoriesModel.getOperationType());
+        subcategoryEntity.setCategoryEntity(categoryEntity);
+        subcategoryEntity.setColor(subcategoriesModel.getColor());
+        subcategoriesRepositories.save(subcategoryEntity);
+    }
+
+    public CategoryEntity getCategoryById (Long categoryId) {
+
+        return categoriesRepositories.findById(categoryId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+    }
+
+    @Transactional
+    public void deleteById(Long subcategoryId) {
+        subcategoriesRepositories.deleteById(subcategoryId);
+    }
+
 }

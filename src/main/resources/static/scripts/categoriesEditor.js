@@ -20,8 +20,14 @@ window.addEventListener("load", function (event) {
 
     let submit = document.getElementById('editor-btn-submit')
     submit.addEventListener('click',function () {
+        let id = document.querySelector('#editor-id-div')
         if (validForm()) {
-            postRequest()
+            if (!id.classList.contains('is-hidden')) {
+                postRequestEdit()
+            } else {
+                postRequestNew()
+            }
+
         }
     });
 
@@ -36,6 +42,8 @@ window.addEventListener("load", function (event) {
         } else {
             if (duplicatedCategory(categoryName, mainCategoryName)) {
                 setHiddenAttribute(categoryError)
+            } else {
+                valid = false;
             }
         }
         return valid;
@@ -79,44 +87,41 @@ window.addEventListener("load", function (event) {
         return valid;
     }
 
-    function postRequest() {
+    function postRequestNew() {
         let categoryName = document.getElementById('editor-subcategory');
+        let categoryNameValue = categoryName.value;
         let color = document.getElementById('color-picker');
         let mainCategory = document.getElementById('editor-category');
         let queryUrl;
         let data;
+        data = {
+            subCategory: categoryName.value,
+            color: color.style.backgroundColor,
+            operationType: getOperationType(),
+        }
         if (mainCategory.value !== '') {
             let categoryId = getIdOfDatalist(mainCategory.value);
-            data = {
-                subCategory: categoryName.value,
-                color: color.style.backgroundColor,
-                operationType: getOperationType(),
-            }
             queryUrl = 'subcategories/' + categoryId;
             sendPostQuery(URL + queryUrl, data)
-            window.location = URL + 'categories'
         } else {
             //add main Category to dataBase
+            queryUrl = 'categories';
             data = {
                 category: categoryName.value,
                 color: color.style.backgroundColor,
                 operationType: getOperationType(),
             }
-            queryUrl = 'categories';
             sendPostQuery(URL + queryUrl, data)
             //add at the same time first subcategory to dataBase
             data = {
-                subCategory: categoryName.value + ' General',
+                subCategory: categoryNameValue + ' General',
                 color: color.style.backgroundColor,
                 operationType: getOperationType(),
             }
-            setTimeout(5000)
-            addFirstSubCategory(data,categoryName.value)
-            window.location = URL + 'categories'
+            setTimeout(10000)
+            addFirstSubCategory(data,categoryNameValue)
         }
-
-
-
+        window.location = URL + 'categories'
     }
 
     function sendPostQuery(requestURL, data) {
@@ -140,10 +145,7 @@ window.addEventListener("load", function (event) {
 
     function getIdOfDatalist(inputValue){
         let catId;
-        console.log(inputValue)
         Array.from(document.getElementsByClassName("editor-category-list")).forEach(function(element) {
-            console.log(element.value)
-            console.log(inputValue)
             if (element.value === inputValue) {
                 let id = element.id.split('#')
                 catId = id[1]
@@ -152,14 +154,14 @@ window.addEventListener("load", function (event) {
         return Number(catId);
     }
 
-    async function getRequest(requestUrl) {
-        return fetch(URL + requestUrl);
+    async function getRequest(requestUrl, filter) {
+        return fetch(URL + requestUrl + filter);
     }
 
     function addFirstSubCategory (data, maincategoryName) {
         getUpdatedCategories()
         function getUpdatedCategories() {
-            getRequest('categories/json')
+            getRequest('categories-filter/', maincategoryName)
                 .then((response) => response.json())
                 .then((json) => {
                     Send(json);
@@ -171,9 +173,51 @@ window.addEventListener("load", function (event) {
                     let categoryId = array[i].id;
                     let queryUrl = 'subcategories/' + categoryId;
                     sendPostQuery(URL + queryUrl, data)
+                    return
+                }
+            }
+            getUpdatedCategories()
+        }
+    }
+
+    function postRequestEdit () {
+        let categoryName = document.getElementById('editor-subcategory');
+        let categoryNameValue = categoryName.value;
+        let color = document.getElementById('color-picker');
+        let mainCategory = document.getElementById('editor-category');
+        let queryUrl;
+        let data;
+        data = {
+            subCategory: categoryName.value,
+            color: color.style.backgroundColor,
+            operationType: getOperationType(),
+        }
+        getCategoryIdAndPost()
+
+        function getCategoryIdAndPost() {
+            getRequest('categories-filter/', mainCategory.value)
+                .then((response) => response.json())
+                .then((json) => {
+                    sendJsonToPostRequest(json);
+                });
+        }
+
+        function sendJsonToPostRequest(array) {
+            let subcategoryId = document.querySelector('#editor-subcategory-id').textContent;
+            subcategoryId = subcategoryId.split('#')[1]
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].category === mainCategory.value) {
+                    let categoryId = array[i].id;
+                    console.log(categoryId)
+                    let queryUrl = 'subcategories-edit/' + Number(categoryId) + '/' + Number(subcategoryId);
+                    sendPostQuery(URL + queryUrl, data)
                 }
             }
 
         }
+        window.location = URL + 'categories'
     }
+
+
+
 });

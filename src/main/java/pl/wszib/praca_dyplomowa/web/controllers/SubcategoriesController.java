@@ -3,11 +3,8 @@ package pl.wszib.praca_dyplomowa.web.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.wszib.praca_dyplomowa.services.CategoriesService;
 import pl.wszib.praca_dyplomowa.services.SubcategoriesService;
-import pl.wszib.praca_dyplomowa.web.models.CategoriesModel;
 import pl.wszib.praca_dyplomowa.web.models.SubcategoriesModel;
 
 import java.util.List;
@@ -37,4 +34,26 @@ public class SubcategoriesController {
         return "redirect:categories";
     }
 
+    @GetMapping("/subcategories/{subcategory_Id}")
+    public ResponseEntity<List<SubcategoriesModel>> getSubcategoryById(@PathVariable("subcategory_Id") Long subcategoryID) {
+
+        return new ResponseEntity(subcategoriesService.getById(subcategoryID), HttpStatus.OK);
+    }
+
+    @PostMapping("/subcategories-edit/{category_Id}/{subcategory_id}")
+    @ResponseBody
+    public String editSubcategory(@RequestBody SubcategoriesModel subcategoriesModel,
+                                  @PathVariable("subcategory_id") Long subcategoryID,
+                                  @PathVariable("category_Id") Long categoryID) {
+
+        subcategoriesService.editSubcategory(categoryID, subcategoryID, subcategoriesModel);
+        return "redirect:categories";
+    }
+
+    @PostMapping("subcategories/delete/{subcategory_id}")
+    public String deletePizza(@PathVariable("subcategory_id") Long subcategoryID) {
+        subcategoriesService.deleteById(subcategoryID);
+
+        return "redirect:/categories";
+    }
 }

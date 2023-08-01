@@ -246,6 +246,29 @@ table tr > td:last-child {
 .error td {
     width: 300px;
 }
+/*HISTORY PAGE STYLES*/
+#history-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.history-filters {
+    height: 3%;
+}
+
+.history-main-table {
+    /*margin: 20px;*/
+    height: 87%;
+}
+
+.history-table {
+    padding: 10px;
+    box-shadow:var(--small-box_shadow);
+    height: 100%;
+    margin: 2%;
+    border-radius: 10px;
+    background-color: white;
+}
 
 #history-table, #history-filters{
     margin-left: 2%;
@@ -262,7 +285,10 @@ li {
     display: flex;
     margin-bottom: 15px;
 }
+
+
 .table-header {
+    display: flex;
     background-color: black;
     /*font-size: 13px;*/
     font-weight: bold;
@@ -275,12 +301,17 @@ li {
 }
 
 .table-row-history {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    width: 100%;
+    display: flex;
+    background-color: white;
     border-radius: 6px;
     padding: 10px 30px;
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.table-row-history :hover {
+    background-color: var(--backgroud);
 }
 
 .col-1 {
@@ -469,6 +500,14 @@ li {
     margin-bottom: 5px;
 }
 
+.category-row {
+    height: 50px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5px;
+}
+
 .category :hover {
     background-color: var(--backgroud);
     border-radius: 10px;
@@ -649,6 +688,35 @@ li {
 }
 
 .color-category {
-    height: 20px;
+    height: 100%;
     width: 20px;
+    position: relative;
+}
+
+.color-category-element {
+    height:20px;
+    width: 20px;
+    border-radius: 50%;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+}
+
+.category-col-edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 2%;
+}
+
+.category-col-1 {
+    width: 5%;
+}
+
+.category-col-2 {
+    width: 80%;
+}
+
+.category-col-3 {
+    width: 5%;
 }

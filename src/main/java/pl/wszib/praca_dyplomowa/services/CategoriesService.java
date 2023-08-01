@@ -3,6 +3,7 @@ package pl.wszib.praca_dyplomowa.services;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.wszib.praca_dyplomowa.data.entities.CategoryEntity;
 import pl.wszib.praca_dyplomowa.data.repositories.CategoriesRepositories;
 import pl.wszib.praca_dyplomowa.data.repositories.SubcategoriesRepositories;
 import pl.wszib.praca_dyplomowa.web.mappers.CategoriesMapper;
@@ -40,6 +41,9 @@ public class CategoriesService {
         categoriesRepositories.save(entity);
     }
 
+    public List<CategoryEntity> getCategoryByName (String categoryName) {
+        return categoriesRepositories.getCategoryByName(categoryName);
+    }
 
 
 

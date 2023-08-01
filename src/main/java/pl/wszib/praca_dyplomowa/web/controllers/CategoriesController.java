@@ -44,4 +44,10 @@ public class CategoriesController {
         categoriesService.saveCategory(categoriesModel);
         return "redirect:categories";
     }
+
+    @GetMapping("/categories-filter/{category_name}")
+    public ResponseEntity<List<SubcategoriesModel>> getSubcategoryById(@PathVariable("category_name") String categoryName) {
+
+        return new ResponseEntity(categoriesService.getCategoryByName(categoryName), HttpStatus.OK);
+    }
 }
