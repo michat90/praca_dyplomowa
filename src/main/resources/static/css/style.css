@@ -182,10 +182,22 @@ table tr > td:last-child {
     text-align: right;
 }
 
+#new-transaction-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 .new-trans-table-row-left-side {
     width: 300px;
     margin-right: 10px;
     padding-right: 10px;
+}
+
+.new-transaction-category {
+    display: flex;
+    flex-direction: row;
 }
 
 .new-trans-table-row-left-side > h3 {
@@ -205,11 +217,12 @@ table tr > td:last-child {
 }
 
 .table-row {
+    display: flex;
+    flex-direction: row;
     background-color: #ffffff;
-    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-    padding: 25px 30px;
-    margin-bottom: 15px;
+    /*padding: 25px 30px;*/
+    margin-bottom: 5px;
+    height: 35px;
 }
 
 .btn {
@@ -224,16 +237,50 @@ table tr > td:last-child {
     font-size: 1em;
 }
 
-.btn-new-transaction {
-    border-radius: 10px;
-    width: 100px;
-    height: 15px;
-    text-align: center;
+.btn-new-transactions {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    justify-content: space-between;
 }
 
 #table-new-transaction {
-    margin-left: 50px;
-    margin-top: 50px;
+    margin-left: 5%;
+    padding: 2%;
+}
+
+.new-transaction-table-box {
+    background-color: white;
+    width: 50%;
+    height: 70%;
+    margin-left: 5%;
+    margin-top: 5%;
+    box-shadow: var(--small-box_shadow);
+    border-radius: 10px;
+}
+
+.new-transaction-page-title {
+    margin-top: 10px;
+}
+
+.new-transaction-plus-btn {
+    display:block;
+    width:25px;
+    height:25px;
+    line-height:25px;
+    border: 2px solid #f5f5f5;
+    border-radius: 50%;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    background: orange;
+    box-shadow: 0 0 3px gray;
+    font-size:20px;
+    font-weight:bold;
+    cursor: grab;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .error {
@@ -265,9 +312,16 @@ table tr > td:last-child {
     padding: 10px;
     box-shadow:var(--small-box_shadow);
     height: 100%;
-    margin: 2%;
+    margin: 2% 5%;
     border-radius: 10px;
     background-color: white;
+}
+
+#history-table-content {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 }
 
 #history-table, #history-filters{
@@ -290,7 +344,7 @@ li {
 .table-header {
     display: flex;
     background-color: black;
-    /*font-size: 13px;*/
+    font-size: 0.9em;
     font-weight: bold;
     color: white;
     text-transform: uppercase;
@@ -298,10 +352,11 @@ li {
     margin-bottom: 15px;
     margin-right: 10px;
     padding: 10px 30px;
+    border-radius: 5px;
 }
 
 .table-row-history {
-    width: 100%;
+    width: 90%;
     display: flex;
     background-color: white;
     border-radius: 6px;
@@ -310,11 +365,17 @@ li {
     margin-bottom: 10px;
 }
 
-.table-row-history :hover {
-    background-color: var(--backgroud);
+
+.history-col-content {
+    /*margin-right: 30px;*/
 }
 
+
 .col-1 {
+    width: 5%;
+    padding-left: 0;
+}
+.col-1-header {
     width: 5%;
     padding-left: 0;
 }
@@ -323,13 +384,39 @@ li {
     display: flex;
     flex-direction: column;
 }
+.col-2-header {
+    width: 27%;
+    display: flex;
+    flex-direction: column;
+}
+
 .col-3 {
     width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+.col-3-header {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .col-4 {
-    width: 15%;
+    width: 20%;
 }
+
+.col-4-header {
+    width: 18%;
+}
+
 .col-5 {
+    width: 5%;
+}
+
+.col-5-header {
     width: 5%;
 }
 
@@ -347,15 +434,14 @@ li {
 }
 
 .category-history {
-    /*font-size: 15px;*/
+    font-size: 0.9em;
 }
 
 .subcategory-history {
     margin-top: 2px;
     margin-left: 8px;
-    /*font-size: 12px;*/
+    font-size: 0.8em;
 }
-
 
 .amount-history {
     color: red;
@@ -363,15 +449,21 @@ li {
 
 .title-history {
     color: gray;
-    /*font-size: 12px;*/
+    font-size: 0.8em;
 }
 
 .id-history {
     background-color: dodgerblue;
     color: white;
     border-radius: 6px;
-    /*font-size: 12px;*/
+    font-size: 0.8em;
     padding: 5px;
+}
+
+.history-btn-delete,.history-btn-edit {
+    cursor: grab;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .edit-btn {
@@ -495,6 +587,8 @@ li {
     cursor: grab;
     margin-top: 10px;
 }
+
+
 
 .category {
     margin-bottom: 5px;

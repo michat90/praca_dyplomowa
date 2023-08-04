@@ -1,8 +1,9 @@
 window.addEventListener("load", function (event) {
     let URL = 'http://localhost:8080/'
-    if (window.location.href.match(URL + 'categories') == null) {
+    if (window.location.href.match(URL + 'categories') == null && window.location.href.indexOf('new-transaction') < 1) {
         return false;
     }
+
     let incomeCheckBox = document.getElementById("editor-income")
     let expenseCheckBox = document.getElementById("editor-expense")
 

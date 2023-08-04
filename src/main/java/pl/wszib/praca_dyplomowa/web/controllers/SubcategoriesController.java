@@ -51,7 +51,7 @@ public class SubcategoriesController {
     }
 
     @PostMapping("subcategories/delete/{subcategory_id}")
-    public String deletePizza(@PathVariable("subcategory_id") Long subcategoryID) {
+    public String deleteSubcategory(@PathVariable("subcategory_id") Long subcategoryID) {
         subcategoriesService.deleteById(subcategoryID);
 
         return "redirect:/categories";

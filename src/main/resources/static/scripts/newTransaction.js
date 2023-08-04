@@ -1,17 +1,23 @@
-
-window.addEventListener("load",function(event) {
+window.addEventListener("load", function (event) {
     let URL = 'http://localhost:8080/'
-    if (window.location.href.match(URL + 'new-transaction') == null) {
+    if (window.location.href.indexOf('new-transaction') < 1) {
         return false;
     }
+
     let submit = document.getElementById("btn-submit");
     let amount = document.getElementById("amount");
     let datepicker = document.getElementById("datepicker");
     let title = document.getElementById("title");
     let tag = document.getElementById("tag");
     let category = document.getElementById("categories")
-
+    let clear = document.querySelector('#btn-clear')
+    let addCategory = document.querySelector('#new-transaction-edit-btn')
+    let categoryEditor = document.querySelector('#categories-editor')
+    fillFormToEditData()
     getCategories()
+    clear.addEventListener("click", function () {
+        window.location = URL + 'new-transaction'
+    });
     category.addEventListener("change", function () {
         getSubcategories()
     });
@@ -21,7 +27,13 @@ window.addEventListener("load",function(event) {
             postRequest()
         }
     });
-
+    addCategory.addEventListener('click', function () {
+        if (categoryEditor.classList.contains('hidden-box')) {
+            categoryEditor.classList.remove('hidden-box')
+        } else {
+            categoryEditor.classList.add('hidden-box')
+        }
+    });
 
 
     function validForm() {
@@ -100,19 +112,19 @@ window.addEventListener("load",function(event) {
         let cat = document.getElementById("categories");
         let subCat = document.getElementById("subcategories");
         let dateToConvert = datepicker.value
-        let [month,day,year] = dateToConvert.split('/')
-        transactionDate  = `${year}-${month}-${day}`;
+        let [month, day, year] = dateToConvert.split('/')
+        transactionDate = `${year}-${month}-${day}`;
         console.log(transactionDate)
         const data = {
             amount: amount.value,
             date: transactionDate,
             category: cat.value,
             subcategory: subCat.value,
-            tag: title.value,
-            title: tag.value
+            tag: tag.value,
+            title: title.value
         }
         console.log(data)
-        fetch(URL+'new-transaction', {
+        fetch(URL + 'new-transaction', {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -120,17 +132,17 @@ window.addEventListener("load",function(event) {
             },
             body: JSON.stringify(data)
         })
-        window.location = URL+'new-transaction'
+        window.location = URL + 'new-transaction'
     }
 
-    async function getRequest (requestUrl){
+    async function getRequest(requestUrl) {
         return fetch(URL + requestUrl, {
-        method: "GET",
-    });
+            method: "GET",
+        });
     }
 
 
-    function getCategories () {
+    function getCategories() {
         getRequest('categories/json')
             .then((response) => response.json())
             .then((json) => {
@@ -138,12 +150,12 @@ window.addEventListener("load",function(event) {
             });
     }
 
-    function getSubcategories () {
+    function getSubcategories() {
         getRequest("subcategories/json")
             .then((response) => response.json())
             .then((json) => {
                 let categoryName = document.getElementById("categories");
-                addSubCategories(json,categoryName.value);
+                addSubCategories(json, categoryName.value);
             });
     }
 
@@ -159,7 +171,7 @@ window.addEventListener("load",function(event) {
         }
     }
 
-    function addSubCategories(array,categoryName) {
+    function addSubCategories(array, categoryName) {
         let select = document.getElementById("subcategories-list");
         removeAllChildNodes(select);
         document.getElementById("subcategories").value = "";
@@ -180,4 +192,36 @@ window.addEventListener("load",function(event) {
         }
     }
 
-},false);
+    function fillFormToEditData() {
+        let urlToCheck = window.location.href;
+        urlToCheck = urlToCheck.split('/');
+        if (urlToCheck[urlToCheck.length-1] === 'new-transaction') {
+            return;
+        }
+        let id = urlToCheck[urlToCheck.length-1];
+        getTransactionById(id);
+    }
+
+    function getTransactionById(ID) {
+        getRequest('transactions/' + ID)
+            .then((response) => response.json())
+            .then((json) => {
+                moveDataToTransactionEditor(json);
+            });
+    }
+
+    function moveDataToTransactionEditor(array) {
+        let id = document.querySelector('.new-transaction-id')
+        id.id = 'new-transaction#' + array['id'];
+        let subcategories = document.getElementById("subcategories")
+        amount.value = array['amount'];
+        category.value = array['category']
+        subcategories.value = array['subcategory']
+        title.value = array['title']
+        tag.value = array['tag']
+        let dateToConvert = array['date'];
+        let [year, month, day] = dateToConvert.split('-')
+        datepicker.value = `${month}/${day}/${year}`
+    }
+
+}, false);

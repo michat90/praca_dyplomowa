@@ -18,50 +18,25 @@
 
     <div class="history-main-table">
         <div class="history-table">
-<!--            <ul id="history-table">-->
-                <div class="table-header">
-                    <div class="col-1">ID</div>
-                    <div class="col-2">
-                        <div>Category</div>
-                        <div>Subcategory</div>
-                    </div>
-                    <div class="col-3">
-                        <div>Amount</div>
-                        <div>Title</div>
-                        <div>Tag</div>
-                    </div>
-                    <div class="col-4">Date</div>
-                    <div class="col-5">Action</div>
+            <!--            <ul id="history-table">-->
+            <div class="table-header">
+                <div class="col-1-header">ID</div>
+                <div class="col-2-header">
+                    <div>Category</div>
+                    <div>Subcategory</div>
                 </div>
-                <div class="table-row-history" th:each="transaction : ${transactions}">
-                    <div class="col-1">
-                        <span class="id-history" th:text="${transaction.id}"></span>
-                    </div>
-                    <div class="col-2">
-                        <div class="category-history" th:text="${transaction.category}"></div>
-                        <div class="subcategory-history" th:text="${transaction.subcategory}"></div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <span class="amount-history" th:text="|${transaction.amount} zł|"></span>
-                        </div>
-                        <div>
-                            <span class="title-history" th:text="${transaction.title}"></span>
-                        </div>
-                        <div>
-                            <span class="tag-history" th:text="${transaction.tag}"></span>
-                        </div>
-                    </div>
-                    <div class="col-4" th:text="${transaction.date}"></div>
-
-                    <div class="edit-btn col col-5">
-                        <img class="nav-png" th:src="@{/icons/delete.svg}" alt="Delete">
-                        <img class="nav-png" th:src="@{/icons/edit.svg}" alt="Edit">
-                    </div>
-
-
+                <div class="col-3-header">
+                    <div>Amount</div>
+                    <div>Title</div>
+                    <div>Tag</div>
                 </div>
-<!--            </ul>-->
+                <div class="col-4-header">Date</div>
+                <div class="col-5-header">Action</div>
+            </div>
+            <div id="history-table-content">
+
+            </div>
+
         </div>
 
     </div>

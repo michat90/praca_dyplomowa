@@ -1,7 +1,10 @@
 package pl.wszib.praca_dyplomowa.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.wszib.praca_dyplomowa.data.entities.CategoryEntity;
+import pl.wszib.praca_dyplomowa.data.entities.TransactionEntity;
 import pl.wszib.praca_dyplomowa.data.repositories.TransactionRepositories;
 import pl.wszib.praca_dyplomowa.web.mappers.TransactionMapper;
 import pl.wszib.praca_dyplomowa.web.models.TransactionModel;
@@ -30,5 +33,18 @@ public class TransactionService {
 
         transactionRepositories.save(entity);
     }
+
+    @Transactional
+    public void deleteById(Long transactionId) {
+        transactionRepositories.deleteById(transactionId);
+    }
+
+    public TransactionEntity getTransactionById (Long transactionId) {
+
+        return transactionRepositories.findById(transactionId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+    }
+
 
 }
