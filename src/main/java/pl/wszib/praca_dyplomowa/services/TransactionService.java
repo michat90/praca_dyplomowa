@@ -4,9 +4,11 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wszib.praca_dyplomowa.data.entities.CategoryEntity;
+import pl.wszib.praca_dyplomowa.data.entities.SubcategoryEntity;
 import pl.wszib.praca_dyplomowa.data.entities.TransactionEntity;
 import pl.wszib.praca_dyplomowa.data.repositories.TransactionRepositories;
 import pl.wszib.praca_dyplomowa.web.mappers.TransactionMapper;
+import pl.wszib.praca_dyplomowa.web.models.SubcategoriesModel;
 import pl.wszib.praca_dyplomowa.web.models.TransactionModel;
 
 import java.util.List;
@@ -44,6 +46,21 @@ public class TransactionService {
         return transactionRepositories.findById(transactionId)
                 .orElseThrow(
                         EntityNotFoundException::new);
+    }
+
+    @Transactional
+    public void editTransaction(Long transactionId,  TransactionModel transactionModel) {
+        TransactionEntity transactionEntity = transactionRepositories.findById(transactionId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+
+        transactionEntity.setAmount(transactionModel.getAmount());
+        transactionEntity.setDate(transactionModel.getDate());
+        transactionEntity.setCategory(transactionModel.getCategory());
+        transactionEntity.setSubcategory(transactionModel.getSubcategory());
+        transactionEntity.setTitle(transactionModel.getTitle());
+        transactionEntity.setTag(transactionModel.getTag());
+        transactionRepositories.save(transactionEntity);
     }
 
 

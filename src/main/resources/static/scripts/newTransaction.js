@@ -29,9 +29,12 @@ window.addEventListener("load", function (event) {
     });
     addCategory.addEventListener('click', function () {
         if (categoryEditor.classList.contains('hidden-box')) {
-            categoryEditor.classList.remove('hidden-box')
+            categoryEditor.classList.remove('hidden-box');
+            let expenseCheckBox = document.getElementById("editor-expense");
+            expenseCheckBox.checked = true;
+            addMainCategoriesToEditor();
         } else {
-            categoryEditor.classList.add('hidden-box')
+            categoryEditor.classList.add('hidden-box');
         }
     });
 
@@ -105,7 +108,6 @@ window.addEventListener("load", function (event) {
         if (element.getAttribute('hidden') !== null) {
             element.hidden = true
         }
-
     }
 
     function postRequest() {
@@ -113,6 +115,7 @@ window.addEventListener("load", function (event) {
         let subCat = document.getElementById("subcategories");
         let dateToConvert = datepicker.value
         let [month, day, year] = dateToConvert.split('/')
+        let requestURL;
         transactionDate = `${year}-${month}-${day}`;
         console.log(transactionDate)
         const data = {
@@ -123,15 +126,23 @@ window.addEventListener("load", function (event) {
             tag: tag.value,
             title: title.value
         }
-        console.log(data)
-        fetch(URL + 'new-transaction', {
+        let urlToCheck = window.location.href;
+        urlToCheck = urlToCheck.split('/');
+        if (urlToCheck[urlToCheck.length-1] === 'new-transaction') {
+            requestURL ='new-transaction';
+        } else {
+            let id = urlToCheck[urlToCheck.length-1];
+            requestURL ='transactions/edit/' + Number(id);
+        }
+        fetch(URL + requestURL, {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        })
+        });
+
         window.location = URL + 'new-transaction'
     }
 
@@ -168,6 +179,25 @@ window.addEventListener("load", function (event) {
                 select.innerHTML +=
                     "<option>" + array[i].category + "</option>";
             }
+        }
+    }
+    function addMainCategoriesToEditor() {
+        fetch('categories/json')
+            .then((response) => response.json())
+            .then((json) => {
+                addCategoriesToEditor(json);
+            });
+    }
+
+    function addCategoriesToEditor(array) {
+        let select = document.getElementById("editor-categories-list")
+        removeAllChildNodes(select)
+        for (let i = 0; i < array.length; i++) {
+            let newRow = document.createElement('option')
+            newRow.value = array[i].category
+            newRow.setAttribute('id', 'editor-cat#' + array[i].id)
+            newRow.classList.add('editor-category-list')
+            select.appendChild(newRow)
         }
     }
 

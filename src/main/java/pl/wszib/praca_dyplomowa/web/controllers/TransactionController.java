@@ -52,4 +52,12 @@ public class TransactionController {
 
         return new ResponseEntity(transactionService.getTransactionById(transactionId), HttpStatus.OK);
     }
+
+    @PostMapping("transactions/edit/{transaction_id}")
+    public String editTransaction(@PathVariable("transaction_id") Long transactionId,
+                                  @RequestBody TransactionModel transactionModel) {
+        transactionService.editTransaction(transactionId, transactionModel);
+
+        return "redirect:/new-transaction";
+    }
 }

@@ -6,6 +6,7 @@ window.addEventListener("load", function (event) {
 
     let incomeCheckBox = document.getElementById("editor-income")
     let expenseCheckBox = document.getElementById("editor-expense")
+    let newCategoryCheck = false;
 
 
     incomeCheckBox.addEventListener('change', function () {
@@ -113,6 +114,7 @@ window.addEventListener("load", function (event) {
                 operationType: getOperationType(),
             }
             sendPostQuery(URL + queryUrl, data)
+            newCategoryCheck = true
             //add at the same time first subcategory to dataBase
             data = {
                 subCategory: categoryNameValue + ' General',
@@ -122,7 +124,16 @@ window.addEventListener("load", function (event) {
             setTimeout(10000)
             addFirstSubCategory(data,categoryNameValue)
         }
-        window.location = URL + 'categories'
+        if (window.location.href.indexOf('new-transaction') > 1){
+            if (newCategoryCheck) {
+                addCategories(categoryNameValue)
+            }
+            let editor = document.querySelector('#categories-editor');
+            editor.classList.add('hidden-box')
+        } else {
+            window.location = URL + 'categories'
+        }
+
     }
 
     function sendPostQuery(requestURL, data) {
@@ -217,6 +228,13 @@ window.addEventListener("load", function (event) {
 
         }
         window.location = URL + 'categories'
+    }
+
+    function addCategories(mainCategoryName) {
+        let select = document.getElementById("categories-list")
+        let option = document.createElement('option')
+        option.value = mainCategoryName
+        select.appendChild(option)
     }
 
 

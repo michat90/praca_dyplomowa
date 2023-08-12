@@ -700,6 +700,7 @@ li {
 }
 
 .editor-btn-row {
+    width: 60%;
     padding: 5px;
     display: flex;
     flex-direction: row;

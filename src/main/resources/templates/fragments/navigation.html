@@ -7,22 +7,14 @@
 <body>
 <nav id="page-nav" th:fragment="nav">
     <div class="page-nav-list">
-<!--        <div class="nav-item">-->
-<!--            <a style="horiz-align: center">-->
-<!--                <p>-->
-<!--                    <img class="nav-png" th:src="@{/icons/home.svg}" alt="home">-->
-<!--                    <span> Home</span>-->
-<!--                </p>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--        <div class="nav-item">-->
-<!--            <a>-->
-<!--                <p>-->
-<!--                    <img class="nav-png" th:src="@{/icons/overview.svg}" alt="Overview">-->
-<!--                    <span> Overview</span>-->
-<!--                </p>-->
-<!--            </a>-->
-<!--        </div>-->
+        <div class="nav-item">
+            <a th:href="@{/dashboard}">
+                <p>
+                    <img class="nav-png" th:src="@{/icons/home.svg}" alt="Dashboard">
+                    <span> Dashboard</span>
+                </p>
+            </a>
+        </div>
         <div class="nav-item" id="nav-new=transaction">
             <a th:href="@{/new-transaction}">
                 <p>
@@ -31,14 +23,14 @@
                 </p>
             </a>
         </div>
-<!--        <div class="nav-item">-->
-<!--            <a>-->
-<!--                <p>-->
-<!--                    <img class="nav-png" th:src="@{/icons/report.svg}" alt="Reports">-->
-<!--                    <span> Reports</span>-->
-<!--                </p>-->
-<!--            </a>-->
-<!--        </div>-->
+        <!--        <div class="nav-item">-->
+        <!--            <a>-->
+        <!--                <p>-->
+        <!--                    <img class="nav-png" th:src="@{/icons/report.svg}" alt="Reports">-->
+        <!--                    <span> Reports</span>-->
+        <!--                </p>-->
+        <!--            </a>-->
+        <!--        </div>-->
         <div class="nav-item">
             <a th:href="@{/history}">
                 <p>
@@ -47,13 +39,11 @@
                 </p>
             </a>
         </div>
-<!--        onclick="categoriesBtn()-->
+        <!--        onclick="categoriesBtn()-->
         <div class="nav-item" id="categories-btn">
-            <a>
-                <a th:href="@{/categories}">
-                    <img class="nav-png" th:src="@{/icons/categories.svg}" alt="Categories">
-                    <span> Categories</span>
-                </a>
+            <a th:href="@{/categories}">
+                <img class="nav-png" th:src="@{/icons/categories.svg}" alt="Categories">
+                <span> Categories</span>
             </a>
         </div>
     </div>
