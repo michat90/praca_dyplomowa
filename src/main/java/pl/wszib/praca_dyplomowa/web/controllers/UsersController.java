@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.wszib.praca_dyplomowa.data.entities.User;
@@ -64,8 +63,10 @@ public class UsersController {
         user.setAccountNonLocked(true);
         userDetailsManager.createUser(user);
         return "Login";
-
     }
+
+
+
 
 
 }

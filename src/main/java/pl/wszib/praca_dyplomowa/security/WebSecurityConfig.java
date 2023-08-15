@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import pl.wszib.praca_dyplomowa.services.UserDetailsServiceImpl;
 
 
 import javax.sql.DataSource;
@@ -38,6 +39,12 @@ public class WebSecurityConfig {
     public void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
     }
+//    @Autowired
+//    private UserDetailsServiceImpl myUserDetailsService;
+//    @Autowired
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(myUserDetailsService);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -67,25 +74,11 @@ public class WebSecurityConfig {
                         .failureUrl("/login?error")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll)
-                .anonymous(AbstractHttpConfigurer::disable);
+                .logout(LogoutConfigurer::permitAll);
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement((session) -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
-    }
-
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.withUsername("user")
-                .password("abc")
-                .authorities("USER")
-                .build();
-        UserDetails admin = User.withUsername("admin1")
-                .password("{noop}admin1Pass")
-                .authorities("ROLE_ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
     }
 
 

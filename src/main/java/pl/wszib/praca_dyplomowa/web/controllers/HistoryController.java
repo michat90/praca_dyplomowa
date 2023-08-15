@@ -29,8 +29,7 @@ public class HistoryController {
     }
 
     @GetMapping("/history")
-    public String opinionForm(Model model, HttpServletRequest request) {
-        System.out.println(request.getUserPrincipal());
+    public String opinionForm(Model model) {
         return "history";
     }
 
