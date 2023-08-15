@@ -25,7 +25,15 @@ public class TransactionEntity {
     private String tag;
     @Column(name = "Title")
     private String title;
+    private String userName;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String user) {
+        this.userName = user;
+    }
 
     public Long getId() {
         return id;

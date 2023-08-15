@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+    <link rel="stylesheet" th:href="@{/css/loginStyles.css}">
+</head>
+<body>
+<div class="register-page">
+    <div class="register-title" >Register</div>
+    <div class="separator"></div>
+    <div th:if="${param.error}" class="login-error">
+        <p th:text="${session.error}" th:unless="${session == null}">[...]</p>
+    </div>
+    <form th:action="@{/register}" method="post">
+        <label for="username">
+            <b>Username</b>
+        </label>
+        <input class="register-input" type="text" placeholder="Enter Username" name="username" id="username" required>
+        <div class="separator"></div>
+        <label for="password"><b>Password</b></label>
+        <input class="register-input" type="password" placeholder="Enter Password" name="password" id="password" required>
+        <div class="separator"></div>
+        <button type="submit" class="register-btn">Register</button>
+    </form>
+</div>
+
+</body>
+</html>

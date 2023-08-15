@@ -20,11 +20,21 @@ public class TransactionModel {
     private String tag;
 
     private String title;
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public TransactionModel () {
     }
 
-    public TransactionModel(Long id, BigDecimal amount, Date ingredients, String category, String subCategory, String tag, String title) {
+    public TransactionModel(Long id, BigDecimal amount, Date ingredients, String category,
+                            String subCategory, String tag, String title, String user) {
         this.id = id;
         this.amount = amount;
         this.date = ingredients;
@@ -32,6 +42,7 @@ public class TransactionModel {
         this.subcategory = subCategory;
         this.tag = tag;
         this.title = title;
+        this.userName = user;
     }
 
     public Long getId() {

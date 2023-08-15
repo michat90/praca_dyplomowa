@@ -1,0 +1,145 @@
+:root {
+    --primary: #222222;
+    --secondary: #1E87F0;
+    --warning: #F0506E;
+    --white: #FFFFFF;
+    --input-box: #eff1f2;
+    --backgroud:#f2f2f2;
+    --window-height: 700px;
+    --small-box_shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+
+/*LOGIN PAGE STYLES*/
+.login-page {
+    height: 370px;
+    width: 200px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 10px;
+    margin: 10% auto;
+    padding: 15px;
+}
+
+.login-input {
+    background-color: var(--input-box);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    margin-right: 10px;
+    border: 1px solid whitesmoke;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.login-error {
+    background-color: #F0506E;
+    color: white;
+    border-radius: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    width: 90%;
+}
+
+.login-error > p {
+    padding: 3px;
+}
+
+.login-btn {
+    display:block;
+    width:80px;
+    height:50px;
+    line-height:40px;
+    border: 2px solid #f5f5f5;
+    border-radius: 10px;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    background: orange;
+    box-shadow: 0 0 3px gray;
+    font-size:15px;
+    font-weight:bold;
+    cursor: grab;
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.login-register-btn {
+    display:block;
+    width:100px;
+    height:30px;
+    line-height:30px;
+    border: 2px solid #f5f5f5;
+    border-radius: 10px;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    background: orange;
+    box-shadow: 0 0 3px gray;
+    font-size:15px;
+    font-weight:bold;
+    cursor: grab;
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.login-title {
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/*REGISTER PAGE STYLES*/
+.register-page {
+    height: 370px;
+    width: 200px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 10px;
+    margin: 10% auto;
+    padding: 15px;
+}
+
+.register-btn {
+    display:block;
+    width:100px;
+    height:50px;
+    line-height:50px;
+    border: 2px solid #f5f5f5;
+    border-radius: 10px;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    background: orange;
+    box-shadow: 0 0 3px gray;
+    font-size:15px;
+    font-weight:bold;
+    cursor: grab;
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+}
+
+.register-title {
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.register-input {
+    background-color: var(--input-box);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    margin-right: 10px;
+    border: 1px solid whitesmoke;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

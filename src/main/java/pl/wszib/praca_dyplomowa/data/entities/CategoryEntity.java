@@ -21,6 +21,7 @@ public class CategoryEntity {
     private String operationType;
 
 
+
     public Long getId() {
         return id;
     }

@@ -8,8 +8,8 @@ VALUES (10000, 10000, 'Food General', 'RGB(100,100,100)', 'expence'),
        (10001, 10000, 'Food', 'RGB(100,100,100)', 'expence'),
        (10002, 10001, 'House General', 'RGB(100,100,100)', 'expence');
 
-INSERT INTO users (username, password, role)
+INSERT INTO users (username, password, role,account_non_locked)
 VALUES ('user',
-        '$2a$10$czC/Hd2QgqTwDpxOwf4mWuqeSg4YKx2nTcWpstVMBLCL9QkIy2mzq',
-        'USER');
+        'abc',
+        'USER',1);
 

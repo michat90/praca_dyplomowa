@@ -23,7 +23,8 @@ public class User implements UserDetails {
 
     @Id
     private String username;
-    private String password; @Column(name = "account_non_locked")
+    private String password;
+    @Column(name = "account_non_locked")
     private boolean accountNonLocked;
     private String role;
 
@@ -85,4 +86,6 @@ public class User implements UserDetails {
     public boolean getAccountNonLocked() {
         return accountNonLocked;
     }
+
+
 }

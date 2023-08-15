@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"      xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <title>Log in</title>
+    <link rel="stylesheet" th:href="@{/css/loginStyles.css}">
 </head>
 <body>
-<div th:if="${param.error}">
-    <p th:text="${session.error}" th:unless="${session == null}">[...]</p>
+<div class="login-page">
+    <div class="login-title">Login</div>
+    <div th:if="${param.error}" class="login-error">
+        <p th:text="${session.error}" th:unless="${session == null}">[...]</p>
+    </div>
+    <div th:if="${param.logout}">You have been logged out.</div>
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label> User Name : <input type="text" name="username" class="login-input"/> </label>
+        </div>
+        <div class="separator"></div>
+        <div>
+            <label> Password: <input type="password" name="password" class="login-input"/> </label>
+        </div>
+        <div class="separator"></div>
+        <div>
+            <input type="submit" value="Sign In" class="login-btn"/></div>
+    </form>
+    <div class="separator"></div>
+    <a th:href="@{/register}" class="login-register-btn">Register</a>
+
 </div>
-<div th:if="${param.logout}">You have been logged out.</div>
-<form th:action="@{/login}" method="post">
-    <div>
-        <label> User Name : <input type="text" name="username" /> </label>
-    </div>
-    <div>
-        <label> Password: <input type="password" name="password" /> </label>
-    </div>
-<div>
-    <input type="submit" value="Sign In" /> </div>
-</form>
+
 </body>
 </html>

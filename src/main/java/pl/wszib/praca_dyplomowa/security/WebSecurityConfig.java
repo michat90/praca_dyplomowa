@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configuration.*;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +23,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Configuration
@@ -32,21 +37,6 @@ public class WebSecurityConfig {
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-                .build();
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER", "ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
     }
 
     @Bean
@@ -65,20 +55,40 @@ public class WebSecurityConfig {
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/","/register**","/css**").permitAll()
+                        .requestMatchers(HttpMethod.POST).permitAll()
+                        .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
+                        .loginPage("/login")
                         .passwordParameter("password")
                         .usernameParameter("username")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/dashboard")
                         .failureUrl("/login?error")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
-
+                .logout(LogoutConfigurer::permitAll)
+                .anonymous(AbstractHttpConfigurer::disable);
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.withUsername("user")
+                .password("abc")
+                .authorities("USER")
+                .build();
+        UserDetails admin = User.withUsername("admin1")
+                .password("{noop}admin1Pass")
+                .authorities("ROLE_ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+
+
 
 
 

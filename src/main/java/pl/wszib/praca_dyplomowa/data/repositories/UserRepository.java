@@ -9,5 +9,5 @@ import pl.wszib.praca_dyplomowa.data.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.username = :username")
-    public User getUserByUsername(@Param("username") String username);
+    public User findUserByUsername(@Param("username") String username);
 }
