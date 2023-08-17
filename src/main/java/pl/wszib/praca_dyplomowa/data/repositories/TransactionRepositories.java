@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface TransactionRepositories extends JpaRepository<TransactionEntity, Long> {
 
-    @Query("Select category, amount from TransactionEntity where userName = :user")
+    @Query("from TransactionEntity where userName = :user")
     public List<TransactionEntity> getTransactionsByUser (String user);
 }

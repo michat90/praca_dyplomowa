@@ -2,10 +2,11 @@ package pl.wszib.praca_dyplomowa.web.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.wszib.praca_dyplomowa.services.SubcategoriesService;
 import pl.wszib.praca_dyplomowa.services.TransactionService;
 import pl.wszib.praca_dyplomowa.web.models.SubcategoriesModel;
 import pl.wszib.praca_dyplomowa.web.models.TransactionModel;
@@ -22,7 +23,6 @@ public class TransactionController {
 
     @GetMapping("/new-transaction")
     public String transaction(Model model) {
-
         return "newTransaction";
     }
 

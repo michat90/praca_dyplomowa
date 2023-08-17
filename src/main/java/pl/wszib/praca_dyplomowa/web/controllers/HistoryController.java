@@ -35,7 +35,9 @@ public class HistoryController {
 
     @GetMapping("/history/json")
     public ResponseEntity<List<SubcategoriesModel>> getTransactions(HttpServletRequest request) {
-        Principal principal = request.getUserPrincipal();
-        return new ResponseEntity(transactionService.getTransactionsByUser(principal.getName()), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        System.out.println(currentPrincipalName);
+        return new ResponseEntity(transactionService.getTransactionsByUser(currentPrincipalName), HttpStatus.OK);
     }
 }

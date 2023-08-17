@@ -12,49 +12,28 @@ import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import pl.wszib.praca_dyplomowa.services.UserDetailsServiceImpl;
-
-
-import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Autowired
-    private AuthProvider authProvider;
 
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authProvider);
+    UserDetailsService userDetailsService;
+
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
-//    @Autowired
-//    private UserDetailsServiceImpl myUserDetailsService;
-//    @Autowired
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(myUserDetailsService);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService jdbcUserDetailsService(DataSource dataSource) {
-
-        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
@@ -77,7 +56,7 @@ public class WebSecurityConfig {
                 .logout(LogoutConfigurer::permitAll);
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement((session) -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
         return http.build();
     }
 
