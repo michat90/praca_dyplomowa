@@ -1,6 +1,8 @@
 package pl.wszib.praca_dyplomowa.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wszib.praca_dyplomowa.data.entities.CategoryEntity;
@@ -26,13 +28,13 @@ public class CategoriesService {
         this.subcategoriesRepositories = subcategoriesRepositories;
     }
 
-    public List<CategoriesModel> findAll() {
-        final var entities = categoriesRepositories.findAll();
-
-        return entities.stream()
-                .map(CategoriesMapper::toModel)
-                .toList();
-    }
+//    public List<CategoriesModel> findAll() {
+//        final var entities = categoriesRepositories.findAll();
+//
+//        return entities.stream()
+//                .map(CategoriesMapper::toModel)
+//                .toList();
+//    }
 
     @Transactional
     public void saveCategory(CategoriesModel categoriesModel) {
@@ -42,8 +44,18 @@ public class CategoriesService {
     }
 
     public List<CategoryEntity> getCategoryByName (String categoryName) {
-        return categoriesRepositories.getCategoryByName(categoryName);
+        return categoriesRepositories.getCategoryByName(categoryName, getAuthenticatedUser());
     }
+
+    public String getAuthenticatedUser() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    public List<CategoryEntity> findAll () {
+        return categoriesRepositories.getAllCategory(getAuthenticatedUser());
+    }
+
+
 
 
 

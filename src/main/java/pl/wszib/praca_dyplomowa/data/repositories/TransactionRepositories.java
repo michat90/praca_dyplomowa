@@ -12,4 +12,7 @@ public interface TransactionRepositories extends JpaRepository<TransactionEntity
 
     @Query("from TransactionEntity where userName = :user")
     public List<TransactionEntity> getTransactionsByUser (String user);
+
+
 }
+

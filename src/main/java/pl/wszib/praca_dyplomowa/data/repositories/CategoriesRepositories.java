@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface CategoriesRepositories extends JpaRepository<CategoryEntity, Long> {
 
-    @Query("from CategoryEntity where category = :categoryName")
-    public List<CategoryEntity> getCategoryByName (String categoryName);
+    @Query("from CategoryEntity where category =?1 and userName =?2")
+    public List<CategoryEntity> getCategoryByName (String categoryName, String User);
+
+    @Query("from CategoryEntity where  userName =?1")
+    public List<CategoryEntity> getAllCategory (String UserName);
 }

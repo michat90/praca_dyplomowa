@@ -10,16 +10,27 @@ public class SubcategoriesModel {
     private String subCategory;
     private String color;
     private String operationType;
+    private String userName;
+
 
     public SubcategoriesModel() {
     }
 
-    public SubcategoriesModel(Long id, CategoryEntity categoryEntity, String subCategory, String color, String operationType) {
+    public SubcategoriesModel(Long id, CategoryEntity categoryEntity, String subCategory, String color, String operationType, String userName) {
         this.id = id;
         this.categoryEntity = categoryEntity;
         this.subCategory = subCategory;
         this.color = color;
         this.operationType = operationType;
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Long getId() {

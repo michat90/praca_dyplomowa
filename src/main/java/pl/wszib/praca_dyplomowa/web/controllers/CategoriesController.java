@@ -28,7 +28,7 @@ public class CategoriesController {
 
     @GetMapping("/categories")
     public String subcategoriesOverview(Model model) {
-        List<SubcategoriesModel> categories = subcategoriesService.findAll();
+        List<SubcategoriesModel> categories = subcategoriesService.listAll();
         model.addAttribute("categories", categories);
         return "categories";
     }

@@ -11,14 +11,25 @@ public class CategoriesModel {
 
     private String operationType;
 
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public CategoriesModel() {
     }
 
-    public CategoriesModel(Long id, String category, String color, String operationType) {
+    public CategoriesModel(Long id, String category, String color, String operationType, String userName) {
         this.id = id;
         this.category = category;
         this.color = color;
         this.operationType = operationType;
+        this.userName = userName;
     }
 
     public Long getId() {

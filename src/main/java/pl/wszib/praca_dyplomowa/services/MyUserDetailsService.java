@@ -2,6 +2,10 @@ package pl.wszib.praca_dyplomowa.services;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+import pl.wszib.praca_dyplomowa.web.mappers.CategoriesMapper;
+import pl.wszib.praca_dyplomowa.web.models.CategoriesModel;
 import pl.wszib.praca_dyplomowa.web.models.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +25,8 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUserName(userName);
@@ -29,4 +35,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return user.map(MyUserDetails::new).get();
     }
+
+    @Transactional
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+
 }

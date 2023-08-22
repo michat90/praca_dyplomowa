@@ -16,6 +16,7 @@ import java.util.List;
 public class TransactionService {
     private final TransactionRepositories transactionRepositories;
 
+
     public TransactionService(TransactionRepositories transactionRepositories) {
         this.transactionRepositories = transactionRepositories;
     }
@@ -73,6 +74,11 @@ public class TransactionService {
                 .map(TransactionMapper::toModel)
                 .toList();
     }
+
+    public String getAuthenticatedUser() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
 
 
 }

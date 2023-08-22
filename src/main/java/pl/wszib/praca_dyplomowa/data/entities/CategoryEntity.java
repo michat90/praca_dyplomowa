@@ -20,7 +20,15 @@ public class CategoryEntity {
     @Column(name = "operation_type")
     private String operationType;
 
+    private String userName;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Long getId() {
         return id;

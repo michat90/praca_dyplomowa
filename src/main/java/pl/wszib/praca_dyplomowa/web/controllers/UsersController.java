@@ -2,10 +2,13 @@ package pl.wszib.praca_dyplomowa.web.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.wszib.praca_dyplomowa.data.entities.User;
 import pl.wszib.praca_dyplomowa.data.repositories.UserRepository;
 import pl.wszib.praca_dyplomowa.services.MyUserDetailsService;
 
@@ -15,11 +18,13 @@ import java.util.Map;
 @Controller
 public class UsersController {
 
-    private final MyUserDetailsService userDetailsManager;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    MyUserDetailsService userDetailsManager;
     private final UserRepository userRepository;
 
-    public UsersController(MyUserDetailsService userDetailsManager, UserRepository userRepository) {
-        this.userDetailsManager = userDetailsManager;
+    public UsersController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -29,6 +34,11 @@ public class UsersController {
                 "error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION")
         );
         return "Login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:login";
     }
 
     @GetMapping("/register")
@@ -54,13 +64,12 @@ public class UsersController {
 
     @PostMapping(value = "/register")
     public String addUser(@RequestParam Map<String, String> body) {
-
-//        MyUserDetails user = new MyUserDetails();
-//        user.setRole("USER");
-//        user.setUsername(body.get("username"));
-//        user.setPassword(body.get("password"));
-//        user.setAccountNonLocked(true);
-//        userDetailsManager.createUser(user);
+        User user = new User();
+        user.setRoles("ROLE_USER");
+        user.setUserName(body.get("username"));
+        user.setPassword(passwordEncoder.encode(body.get("password")));
+        user.setActive(true);
+        userDetailsManager.saveUser(user);
         return "Login";
     }
 
