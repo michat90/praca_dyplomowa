@@ -10,7 +10,7 @@ public class TransactionMapper {
   public static TransactionModel toModel(TransactionEntity entity) {
     return new TransactionModel(entity.getId(), entity.getAmount(), entity.getDate(),
         entity.getCategory(),entity.getSubcategory(),entity.getTag(),
-            entity.getTitle(), entity.getUserName());
+            entity.getTitle(), entity.getUserName(), entity.getTransactionType());
   }
 
   public static TransactionEntity toEntity(TransactionModel model) {
@@ -25,6 +25,7 @@ public class TransactionMapper {
     entity.setSubcategory(model.getSubcategory());
     entity.setTag(model.getTag());
     entity.setTitle(model.getTitle());
+    entity.setTransactionType(model.getTransactionType());
     return entity;
   }
 }

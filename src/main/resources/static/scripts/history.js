@@ -38,6 +38,7 @@ window.addEventListener("load", function (event) {
     function addIdColumn(arr, row) {
         let column = document.createElement('div');
         column.classList.add('col-1');
+        column.classList.add('col-id')
         let colElement = document.createElement('span');
         colElement.classList.add('id-history');
         colElement.innerText = arr[row].id;
@@ -71,7 +72,11 @@ window.addEventListener("load", function (event) {
         column.classList.add('history-col-content')
         let box = document.createElement('div');
         let colElement = document.createElement('span');
-        colElement.classList.add('amount-history');
+        if (arr[row].amount < 0){
+            colElement.classList.add('negative-value');
+        } else {
+            colElement.classList.add('positive-value');
+        }
         let currencyString = new Intl.NumberFormat('pl-PL', formatting_options);
         colElement.innerText = currencyString.format(arr[row].amount)
         box.appendChild(colElement)

@@ -143,3 +143,15 @@
     margin-bottom: 5px;
     margin-top: 5px;
 }
+.logout {
+    background-color: darkseagreen;
+    color: #222222;
+    border-radius: 5px;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    width: 90%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+
+}

@@ -27,6 +27,17 @@ public class TransactionEntity {
     private String title;
     private String userName;
 
+    @Column(name = "Transaction_type")
+    private String transactionType;
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
+
     public String getUserName() {
         return userName;
     }

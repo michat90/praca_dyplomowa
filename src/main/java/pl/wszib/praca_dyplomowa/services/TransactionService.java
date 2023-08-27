@@ -63,6 +63,7 @@ public class TransactionService {
         transactionEntity.setSubcategory(transactionModel.getSubcategory());
         transactionEntity.setTitle(transactionModel.getTitle());
         transactionEntity.setTag(transactionModel.getTag());
+        transactionEntity.setTransactionType(transactionModel.getTransactionType());
         transactionRepositories.save(transactionEntity);
     }
 

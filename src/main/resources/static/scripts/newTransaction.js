@@ -13,6 +13,11 @@ window.addEventListener("load", function (event) {
     let clear = document.querySelector('#btn-clear')
     let addCategory = document.querySelector('#new-transaction-edit-btn')
     let categoryEditor = document.querySelector('#categories-editor')
+    let incomeCheckBox = document.getElementById("transaction-income")
+    let expenseCheckBox = document.getElementById("transaction-expense")
+    let subCategory = document.getElementById("subcategories");
+
+    expenseCheckBox.checked = true
     fillFormToEditData()
     getCategories()
     clear.addEventListener("click", function () {
@@ -20,6 +25,9 @@ window.addEventListener("load", function (event) {
     });
     category.addEventListener("change", function () {
         getSubcategories()
+    });
+    subCategory.addEventListener("change", function () {
+        getTransactionTypeFromSubcategory()
     });
     submit.addEventListener("click", function () {
 
@@ -115,16 +123,19 @@ window.addEventListener("load", function (event) {
         let subCat = document.getElementById("subcategories");
         let dateToConvert = datepicker.value
         let [month, day, year] = dateToConvert.split('/')
+        let [amountValue,operationType] = getOperationTypeAndAmount();
         let requestURL;
+
         transactionDate = `${year}-${month}-${day}`;
         console.log(transactionDate)
         const data = {
-            amount: amount.value,
+            amount: amountValue,
             date: transactionDate,
             category: cat.value,
             subcategory: subCat.value,
             tag: tag.value,
-            title: title.value
+            title: title.value,
+            transactionType: operationType
         }
         let urlToCheck = window.location.href;
         urlToCheck = urlToCheck.split('/');
@@ -144,6 +155,23 @@ window.addEventListener("load", function (event) {
         });
 
         window.location = URL + 'new-transaction'
+    }
+
+    function getOperationTypeAndAmount() {
+        if (incomeCheckBox.checked === true && expenseCheckBox.checked === false) {
+            if (amount.value < 0) {
+                return [amount.value * -1, 'income'];
+            } else {
+                return [amount.value, 'income'];
+            }
+        } else if ((incomeCheckBox.checked === false && expenseCheckBox.checked === true) ||
+        (incomeCheckBox.checked === false && expenseCheckBox.checked === false)) {
+            if (amount.value < 0) {
+                return [amount.value, 'expense'];
+            } else {
+                return [amount.value * -1, 'expense'];
+            }
+        }
     }
 
     async function getRequest(requestUrl) {
@@ -205,12 +233,12 @@ window.addEventListener("load", function (event) {
         let select = document.getElementById("subcategories-list");
         removeAllChildNodes(select);
         document.getElementById("subcategories").value = "";
-        console.log(array)
         for (let i = 0; i < array.length; i++) {
-            console.log(array[i].categoryEntity["category"] === categoryName)
             if (array[i].categoryEntity["category"] === categoryName) {
-                select.innerHTML +=
-                    "<option>" + array[i].subCategory + "</option>";
+                let option = document.createElement('option')
+                option.value = array[i].subCategory
+                option.classList.add('transactionType-' + array[i].operationType)
+                select.appendChild(option)
             }
 
         }
@@ -253,5 +281,34 @@ window.addEventListener("load", function (event) {
         let [year, month, day] = dateToConvert.split('-')
         datepicker.value = `${month}/${day}/${year}`
     }
+
+    incomeCheckBox.addEventListener('change', function () {
+        if (incomeCheckBox.checked === true) {
+            expenseCheckBox.checked = false
+        }
+    });
+    expenseCheckBox.addEventListener('change', function () {
+        if (expenseCheckBox.checked === true) {
+            incomeCheckBox.checked = false
+        }
+    });
+
+    function getTransactionTypeFromSubcategory() {
+        Array.from(document.querySelector('#subcategories-list').children).forEach(function (element) {
+            if (subCategory.value === element.value){
+                let operationType = element.classList.value;
+                operationType = operationType.split('-')[1];
+                if (operationType === 'income') {
+                    incomeCheckBox.checked = true;
+                    expenseCheckBox.checked = false;
+                } else {
+                    incomeCheckBox.checked = false;
+                    expenseCheckBox.checked = true;
+                }
+            }
+        });
+    }
+
+
 
 }, false);

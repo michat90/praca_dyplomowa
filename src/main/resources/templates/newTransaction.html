@@ -9,11 +9,11 @@
 
         <div class="is-hidden new-transaction-id"></div>
         <div id="table-new-transaction">
-            <h4 class="new-transaction-page-title">TRANSACTION EDITOR</h4>
+            <h3 class="new-transaction-page-title">TRANSACTION EDITOR</h3>
             <div class="separator"></div>
             <div class="table-row">
                 <div class="new-trans-table-row-left-side">
-                    <h3>Amount </h3>
+                    <h4>Amount </h4>
                 </div>
                 <div>
                     <input placeholder="0.00" type="text" class="input-table-new-trans" id="amount"/>
@@ -28,7 +28,7 @@
             <div class="separator"></div>
             <div class="table-row">
                 <div class="new-trans-table-row-left-side">
-                    <h3>Date </h3>
+                    <h4>Date </h4>
                 </div>
                 <div>
                     <input placeholder="mm/dd/yyyy" type="text" id="datepicker" class="input-table-new-trans"/>
@@ -43,7 +43,7 @@
             <div class="separator"></div>
             <div class="table-row">
                 <div class="new-trans-table-row-left-side new-transaction-category">
-                    <h3>Category </h3>
+                    <h4>Category </h4>
                     <div class="new-transaction-plus-btn" id="new-transaction-edit-btn">+</div>
                 </div>
                 <div>
@@ -62,7 +62,7 @@
             <div class="separator"></div>
             <div class="table-row">
                 <div class="new-trans-table-row-left-side">
-                    <h3>SubCategory </h3>
+                    <h4>SubCategory </h4>
                 </div>
                 <div>
                     <label>
@@ -80,7 +80,7 @@
             <div class="separator"></div>
             <div class="table-row">
                 <div class="new-trans-table-row-left-side">
-                    <h3>Title </h3>
+                    <h4>Title </h4>
                 </div>
                 <div>
                     <input placeholder="Title" type="text" class="input-table-new-trans" id="title"/>
@@ -89,14 +89,27 @@
             <div class="separator"></div>
             <div class="table-row">
                 <div class="new-trans-table-row-left-side">
-                    <h3>TAG </h3>
+                    <h4>TAG </h4>
                 </div>
                 <div>
                     <input placeholder="Tag" type="text" class="input-table-new-trans" id="tag"/>
                 </div>
             </div>
             <div class="separator"></div>
+            <div class="table-row">
+                <div class="new-trans-table-row-left-side">
+                    <h4>Transaction type </h4>
+                </div>
+                <div class="new-tansaction-type">
+                    <label for="transaction-income">Income</label>
+                    <input type="checkbox" id="transaction-income">
+                    <label for="transaction-expense">Expense</label>
+                    <input type="checkbox" id="transaction-expense">
+                </div>
+            </div>
+            <div class="separator"></div>
         </div>
+
         <div class="btn-new-transactions">
             <div>
                 <p class="editor-btn" id="btn-submit">SUBMIT</p>

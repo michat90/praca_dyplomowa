@@ -8,6 +8,13 @@
 <nav id="page-nav" th:fragment="nav">
     <div class="page-nav-list">
         <div class="nav-item">
+            <a th:href="@{/logout}">
+                <p>
+                    <img class="nav-png" th:src="@{/icons/logout.svg}" alt="New transaction">
+                </p>
+            </a>
+        </div>
+        <div class="nav-item">
             <a th:href="@{/dashboard}">
                 <p>
                     <img class="nav-png" th:src="@{/icons/home.svg}" alt="Dashboard">

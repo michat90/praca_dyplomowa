@@ -190,9 +190,15 @@ table tr > td:last-child {
 
 
 .new-trans-table-row-left-side {
-    width: 300px;
+    width: 30%;
     margin-right: 10px;
     padding-right: 10px;
+}
+
+.new-tansaction-type > label {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 70%;
 }
 
 .new-transaction-category {
@@ -200,8 +206,9 @@ table tr > td:last-child {
     flex-direction: row;
 }
 
-.new-trans-table-row-left-side > h3 {
+.new-trans-table-row-left-side > h4 {
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 .input-table-new-trans {
@@ -223,6 +230,7 @@ table tr > td:last-child {
     /*padding: 25px 30px;*/
     margin-bottom: 5px;
     height: 35px;
+    width: 100%;
 }
 
 .btn {
@@ -279,7 +287,7 @@ table tr > td:last-child {
     font-size:20px;
     font-weight:bold;
     cursor: grab;
-    margin-top: 10px;
+    margin-top: 2px;
     margin-left: 10px;
 }
 
@@ -362,12 +370,23 @@ li {
     border-radius: 6px;
     padding: 10px 30px;
     margin-right: 10px;
-    margin-bottom: 10px;
 }
 
 
 .history-col-content {
     /*margin-right: 30px;*/
+}
+
+.col-id {
+    font-size: 10px;
+}
+
+.negative-value {
+    color: red;
+}
+
+.positive-value {
+    color: green;
 }
 
 
@@ -441,10 +460,6 @@ li {
     margin-top: 2px;
     margin-left: 8px;
     font-size: 0.8em;
-}
-
-.amount-history {
-    color: red;
 }
 
 .title-history {
@@ -839,7 +854,19 @@ li {
     margin-top: 40px;
     margin-left: 10%;
     margin-right: 10%;
-    padding: 20px;
+    padding: 10px;
+    box-shadow: var(--small-box_shadow)
+}
+
+#transaction-by-tag {
+    height: 80%;
+    width: 20%;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
     box-shadow: var(--small-box_shadow)
 }
 
@@ -848,10 +875,32 @@ li {
     width: 30%;
 }
 
-.dashboard-amount {
-
+#transaction-by-category-table, #transaction-by-tag-table   {
+    overflow-y: scroll;
 }
 
+.dashboard-amount {
+    margin-right: 10px;
+}
+/*Scrollbar styles*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 
 

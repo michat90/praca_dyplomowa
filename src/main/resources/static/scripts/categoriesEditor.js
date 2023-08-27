@@ -151,7 +151,7 @@ window.addEventListener("load", function (event) {
         if (incomeCheckBox.checked === true) {
             return 'income'
         } else {
-            return 'expence'
+            return 'expense'
         }
     }
 

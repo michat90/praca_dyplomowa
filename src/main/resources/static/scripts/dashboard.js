@@ -5,11 +5,13 @@ window.addEventListener("load", function (event) {
     }
     getCategories()
 
+
     function getCategories() {
         getRequest('history/json')
             .then((response) => response.json())
             .then((json) => {
                 agregateCategories(json);
+                agregateTags(json);
             });
     }
 
@@ -27,17 +29,32 @@ window.addEventListener("load", function (event) {
                 categories[array[i].category] = array[i].amount;
             }
         }
-        addTransactionsByCategory(categories)
+        addTransactions(categories, "#transaction-by-category-table")
     }
 
-    function addTransactionsByCategory(categories) {
-        let table = document.querySelector("#transaction-by-category");
+
+    function agregateTags(array) {
+        let tags = {};
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].tag !== "") {
+                if (array[i].tag in tags) {
+                    tags[array[i].tag] += array[i].amount;
+                } else {
+                    tags[array[i].tag] = array[i].amount;
+                }
+            }
+        }
+        addTransactions(tags, "#transaction-by-tag-table")
+    }
+
+    function addTransactions(elements, tagSelector) {
+        let table = document.querySelector(tagSelector);
         let formatting_options = {
             style: 'currency',
             currency: 'PLN',
             minimumFractionDigits: 2,
         }
-        for (let key in categories) {
+        for (let key in elements) {
             let box = document.createElement("div")
             box.classList.add("dashboard-box")
             let category = document.createElement("div");
@@ -46,7 +63,12 @@ window.addEventListener("load", function (event) {
             box.appendChild(category)
             let amount = document.createElement("div")
             let currencyString = new Intl.NumberFormat('pl-PL', formatting_options);
-            amount.innerText = currencyString.format(categories[key])
+            amount.innerText = currencyString.format(elements[key])
+            if (elements[key] < 0){
+                amount.classList.add('negative-value');
+            } else {
+                amount.classList.add('positive-value');
+            }
             amount.classList.add("dashboard-amount")
             box.appendChild(amount)
             let separator = document.createElement("div")
@@ -55,16 +77,5 @@ window.addEventListener("load", function (event) {
             table.appendChild(separator)
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 });
