@@ -15,6 +15,6 @@ public class HomeController {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String currentPrincipalName = authentication.getName();
     System.out.println(currentPrincipalName);
-    return "homePage";
+    return "dashboard";
   }
 }
