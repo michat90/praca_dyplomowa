@@ -1,11 +1,5 @@
 window.addEventListener("load", function (event) {
-    // let URL = 'http://localhost:8080/'
-    let URL;
-    if (window.location.host.indexOf('http://') < 1) {
-        URL = 'http://' + window.location.host + '/';
-    } else {
-        URL = window.location.host + '/';
-    }
+    let URL = 'https://home-budget.up.railway.app/'
     if (window.location.href.indexOf('new-transaction') < 1) {
         return false;
     }
