@@ -219,8 +219,10 @@ window.addEventListener("load", function (event) {
         editor.classList.remove('hidden-box');
         if (array["operationType"] === "expense") {
             expenseCheckBox.checked = true;
+            incomeCheckBox.checked = false;
         } else {
             incomeCheckBox.checked = true;
+            expenseCheckBox.checked = false;
         }
         idText.textContent = "ID: #" + array["id"]
         idDiv.classList.remove('is-hidden')
