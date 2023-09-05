@@ -1,5 +1,6 @@
 window.addEventListener("load", function (event) {
     let URL = 'https://home-budget.up.railway.app/'
+    // let URL ='http://localhost:8080/'
     if (window.location.href.match(URL + 'categories') == null && window.location.href.indexOf('new-transaction') < 1) {
         return false;
     }
@@ -25,11 +26,15 @@ window.addEventListener("load", function (event) {
         let id = document.querySelector('#editor-id-div')
         if (validForm()) {
             if (!id.classList.contains('is-hidden')) {
-                postRequestEdit()
+                let mainCategoryName = document.getElementById('editor-category');
+                if (mainCategoryName.value === "") {
+                    postRequestCategoryEdit()
+                } else {
+                    postRequestEdit()
+                }
             } else {
                 postRequestNew()
             }
-
         }
     });
 
@@ -37,15 +42,17 @@ window.addEventListener("load", function (event) {
         let categoryName = document.getElementById('editor-subcategory');
         let mainCategoryName = document.getElementById('editor-category');
         let categoryError = document.getElementById('editor-error-category');
+        let id = document.querySelector('#editor-id-div')
         let valid = true;
         if (categoryName.value === '') {
             valid = false;
             setHiddenAttribute(categoryError,"Category cannot be empty", true);
         } else {
-            if (duplicatedCategory(categoryName, mainCategoryName)) {
-                setHiddenAttribute(categoryError)
-            } else {
-                valid = false;
+            if (id.classList.contains('is-hidden')) {
+                if (!duplicatedCategory(categoryName, mainCategoryName)) {
+                    setHiddenAttribute(categoryError)
+                    valid = false;
+                }
             }
         }
         return valid;
@@ -96,6 +103,7 @@ window.addEventListener("load", function (event) {
         let mainCategory = document.getElementById('editor-category');
         let queryUrl;
         let data;
+        console.log(color.style.backgroundColor)
         data = {
             subCategory: categoryName.value,
             color: color.style.backgroundColor,
@@ -114,21 +122,15 @@ window.addEventListener("load", function (event) {
                 operationType: getOperationType(),
             }
             sendPostQuery(URL + queryUrl, data)
-            newCategoryCheck = true
-            //add at the same time first subcategory to dataBase
-            data = {
-                subCategory: categoryNameValue + ' General',
-                color: color.style.backgroundColor,
-                operationType: getOperationType(),
-            }
-            setTimeout(10000)
-            addFirstSubCategory(data,categoryNameValue)
+            newCategoryCheck = true;
         }
         if (window.location.href.indexOf('new-transaction') > 1){
             if (newCategoryCheck) {
                 addCategories(categoryNameValue)
             }
             let editor = document.querySelector('#categories-editor');
+            categoryName.value = "";
+            mainCategory.value = "";
             editor.classList.add('hidden-box')
         } else {
             window.location = URL + 'categories'
@@ -170,26 +172,27 @@ window.addEventListener("load", function (event) {
         return fetch(URL + requestUrl + filter);
     }
 
-    function addFirstSubCategory (data, maincategoryName) {
-        getUpdatedCategories()
-        function getUpdatedCategories() {
-            getRequest('categories-filter/', maincategoryName)
-                .then((response) => response.json())
-                .then((json) => {
-                    Send(json);
-                });
+    function postRequestCategoryEdit() {
+        let categoryName = document.getElementById('editor-subcategory');
+        let color = document.getElementById('color-picker');
+        const data = {
+            category: categoryName.value,
+            color: color.style.backgroundColor,
+            operationType: getOperationType(),
         }
-        function Send (array) {
-            for (let i = 0; i < array.length; i++) {
-                if (array[i].category === maincategoryName) {
-                    let categoryId = array[i].id;
-                    let queryUrl = 'subcategories/' + categoryId;
-                    sendPostQuery(URL + queryUrl, data)
-                    return
-                }
-            }
-            getUpdatedCategories()
-        }
+        let id = document.getElementById("editor-id-div").textContent;
+        id = id.split('#')[1];
+        console.log(id)
+        fetch(URL + 'categories-edit/' + Number(id), {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        window.location = URL + 'categories'
+
     }
 
     function postRequestEdit () {

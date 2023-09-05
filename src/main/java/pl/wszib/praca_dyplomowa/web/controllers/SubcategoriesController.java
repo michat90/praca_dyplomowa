@@ -56,4 +56,5 @@ public class SubcategoriesController {
 
         return "redirect:/categories";
     }
+
 }

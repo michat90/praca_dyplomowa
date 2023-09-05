@@ -15,7 +15,7 @@ public class SubcategoryEntity {
     private Long id;
     @Column(name = "subcategory")
     private String subCategory;
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @NotFound(
             action = NotFoundAction.IGNORE)
     @JoinColumn(name = "category_id")

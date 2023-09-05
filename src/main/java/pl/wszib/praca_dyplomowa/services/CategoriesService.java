@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wszib.praca_dyplomowa.data.entities.CategoryEntity;
+import pl.wszib.praca_dyplomowa.data.entities.SubcategoryEntity;
 import pl.wszib.praca_dyplomowa.data.repositories.CategoriesRepositories;
 import pl.wszib.praca_dyplomowa.data.repositories.SubcategoriesRepositories;
 import pl.wszib.praca_dyplomowa.web.mappers.CategoriesMapper;
@@ -53,6 +54,30 @@ public class CategoriesService {
 
     public List<CategoryEntity> findAll () {
         return categoriesRepositories.getAllCategory(getAuthenticatedUser());
+    }
+
+    @Transactional
+    public void deleteById(Long categoryId) {
+        categoriesRepositories.deleteById(categoryId);
+    }
+
+    public CategoryEntity getById (Long categoryId) {
+
+        return categoriesRepositories.findById(categoryId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+    }
+
+    @Transactional
+    public void editCategory(Long categoryId, CategoriesModel categoriesModel) {
+        CategoryEntity categoryEntity = categoriesRepositories.findById(categoryId)
+                .orElseThrow(
+                        EntityNotFoundException::new);
+
+        categoryEntity.setCategory(categoriesModel.getCategory());
+        categoryEntity.setOperationType(categoriesModel.getOperationType());
+        categoryEntity.setColor(categoriesModel.getColor());
+        categoriesRepositories.save(categoryEntity);
     }
 
 

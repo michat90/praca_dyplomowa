@@ -1,5 +1,6 @@
 window.addEventListener("load", function (event) {
     let URL = 'https://home-budget.up.railway.app/'
+    // let URL ='http://localhost:8080/'
     if (window.location.href.indexOf('new-transaction') < 1) {
         return false;
     }
@@ -41,6 +42,8 @@ window.addEventListener("load", function (event) {
             let expenseCheckBox = document.getElementById("editor-expense");
             expenseCheckBox.checked = true;
             addMainCategoriesToEditor();
+            let colorPicker = document.querySelector('#color-picker')
+            colorPicker.style.background = '#1E87F0'
         } else {
             categoryEditor.classList.add('hidden-box');
         }
@@ -152,7 +155,11 @@ window.addEventListener("load", function (event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        });
+        })
+            .catch(err => {
+                console.log(err);
+                alert(err);
+            });
 
         window.location = URL + 'new-transaction'
     }

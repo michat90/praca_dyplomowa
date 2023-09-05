@@ -1,5 +1,6 @@
 window.addEventListener("load", function (event) {
     let URL = 'https://home-budget.up.railway.app/'
+    // let URL ='http://localhost:8080/'
     if (window.location.href.match(URL + 'history') == null) {
         return false;
     }

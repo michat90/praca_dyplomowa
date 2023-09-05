@@ -1,14 +1,17 @@
 window.addEventListener("load", function (event) {
     let URL = 'https://home-budget.up.railway.app/'
+    // let URL ='http://localhost:8080/'
     if (window.location.href.match(URL + 'categories') == null) {
         return false;
     }
+    addMainCategories()
     getSubcategories()
     let btn = document.getElementById('categories-edit-btn')
     let incomeCheckBox = document.getElementById("editor-income")
     let expenseCheckBox = document.getElementById("editor-expense")
     let mainCategory = document.querySelector('#editor-category')
     let idDiv = document.querySelector('#editor-id-div')
+
 
     btn.addEventListener('click', function () {
         let editor = document.getElementById('categories-editor')
@@ -77,6 +80,7 @@ window.addEventListener("load", function (event) {
 
     function addCategoriesCol(row, arr) {
         //box to add columns
+
         let box = document.createElement('div')
         box.classList.add('category-col')
         box.classList.add('category-col-2')
@@ -94,9 +98,13 @@ window.addEventListener("load", function (event) {
         return box
     }
 
-    function addColWithBtns(row, arr) {
+    function addColWithBtns(row, arr, type) {
         let edit = document.createElement('div')
-        edit.id = "CatRow#" + arr[row].id
+        if (type === 'categories') {
+            edit.id = "CatRow#" + arr[row].id
+        } else {
+            edit.id = "SubCatRow#" + arr[row].id
+        }
         edit.classList.add('category-col-edit')
         edit.classList.add('category-col-3')
         let editElement = document.createElement('img')
@@ -116,27 +124,50 @@ window.addEventListener("load", function (event) {
         Array.from(document.getElementsByClassName("cat-btn-edit")).forEach(function (element) {
             element.addEventListener('click', function () {
                 let id = element.parentElement.id;
+                let type = id.split("#")[0];
                 id = id.split("#")[1];
-                getSubcategoriesById(Number(id));
+                if (type === 'SubCatRow') {
+                    getSubcategoriesById(Number(id),type);
+                } else {
+                    getCategoryById(Number(id),type)
+                }
+
             });
         });
         Array.from(document.getElementsByClassName("cat-btn-delete")).forEach(function (element) {
             element.addEventListener('click', function () {
                 let id = element.parentElement.id;
+                let type = id.split("#")[0];
                 id = id.split("#")[1];
-                const response = confirm("Are you sure you want to delete this subcategory?");
-                if (response) {
-                    deleteById(Number(id));
+                if (type === 'SubCatRow') {
+                    const response = confirm("Are you sure you want to delete this subcategory?");
+                    if (response) {
+                        deleteById(Number(id), type);
+                    }
+                } else {
+                    const response = confirm("Are you sure you want to delete this category?" +
+                                                " It will delete all related subcategories");
+                    if (response) {
+                        deleteById(Number(id), type);
+                    }
                 }
             });
         });
     }
 
-    function getSubcategoriesById(ID) {
+    function getSubcategoriesById(ID,type) {
         getRequest('subcategories/' + ID)
             .then((response) => response.json())
             .then((json) => {
-                moveDataToEditor(json);
+                moveDataToEditor(json,type);
+            });
+    }
+
+    function getCategoryById(ID, type) {
+        getRequest('categories/' + ID)
+            .then((response) => response.json())
+            .then((json) => {
+                moveDataToEditor(json,type);
             });
     }
 
@@ -167,7 +198,7 @@ window.addEventListener("load", function (event) {
         }
     }
 
-    function moveDataToEditor(array) {
+    function moveDataToEditor(array,type) {
         let editor = document.querySelector('#categories-editor')
         let mainCategory = document.querySelector('#editor-category')
         let categoryName = document.getElementById('editor-subcategory');
@@ -177,9 +208,13 @@ window.addEventListener("load", function (event) {
         let idText = document.querySelector('#editor-subcategory-id')
         let idDiv = document.querySelector('#editor-id-div')
 
-        mainCategory.value = array["categoryEntity"]["category"]
+        if (type !== 'CatRow') {
+            mainCategory.value = array["categoryEntity"]["category"]
+            categoryName.value = array["subCategory"]
+        } else {
+            categoryName.value = array["category"]
+        }
         mainCategory.disabled = true;
-        categoryName.value = array["subCategory"]
         color.style.backgroundColor = array["color"]
         editor.classList.remove('hidden-box');
         if (array["operationType"] === "expence") {
@@ -191,16 +226,78 @@ window.addEventListener("load", function (event) {
         idDiv.classList.remove('is-hidden')
     }
 
-    function deleteById(subcategoryId) {
-        fetch(URL + 'subcategories/delete/' + subcategoryId, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            }
-        });
+    function deleteById(Id, type) {
+        if (type === 'CatRow') {
+            fetch(URL + 'categories/delete/' + Id, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                }
+            });
+        } else {
+            fetch(URL + 'subcategories/delete/' + Id, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                }
+            });
+        }
+
         window.location = URL + 'categories'
     }
+
+    function addMainCategories() {
+        getRequest('categories/json')
+            .then((response) => response.json())
+            .then((json) => {
+                addMainCategoriesToBox(json);
+            });
+    }
+
+    function addMainCategoriesToBox(array) {
+        let selectBox = document.getElementById("card-list")
+        for (let i = 0; i < array.length; i++) {
+            //main row
+            let row = document.createElement('div')
+            row.classList.add('category')
+            let categoryRow = document.createElement('div')
+            categoryRow.classList.add('category-row')
+            row.appendChild(categoryRow)
+            let colorCol = addColWithColor(array[i].color)
+            let box = addMainCategoriesCol(i, array)
+            let edit = addColWithBtns(i, array,'categories')
+            categoryRow.appendChild(colorCol)
+            categoryRow.appendChild(box)
+            categoryRow.appendChild(edit)
+            let separator = document.createElement('div')
+            separator.classList.add('separator')
+            row.appendChild(separator)
+            selectBox.appendChild(row)
+        }
+            // addEvents()
+    }
+
+    function addMainCategoriesCol(row, arr) {
+        //box to add columns
+        let box = document.createElement('div')
+        box.classList.add('category-col')
+        box.classList.add('category-col-2')
+        let col = document.createElement('div')
+        col.classList.add('category-col-values')
+        //categories box
+        let cat = document.createElement('p')
+        cat.innerText = arr[row].category
+        col.appendChild(cat)
+        //subcategory box
+        cat = document.createElement('p')
+        cat.innerText = ""
+        col.appendChild(cat)
+        box.appendChild(col)
+        return box
+    }
+
 
 });
 

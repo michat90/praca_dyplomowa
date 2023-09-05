@@ -52,4 +52,26 @@ public class CategoriesController {
 
         return new ResponseEntity(categoriesService.getCategoryByName(categoryName), HttpStatus.OK);
     }
+
+    @PostMapping("categories/delete/{category_id}")
+    public String deleteCategory(@PathVariable("category_id") Long categoryID) {
+        categoriesService.deleteById(categoryID);
+
+        return "redirect:/categories";
+    }
+
+    @GetMapping("/categories/{category_Id}")
+    public ResponseEntity<List<SubcategoriesModel>> getCategoryById(@PathVariable("category_Id") Long categoryID) {
+
+        return new ResponseEntity(categoriesService.getById(categoryID), HttpStatus.OK);
+    }
+
+    @PostMapping("/categories-edit/{category_Id}")
+    @ResponseBody
+    public String editSubcategory(@RequestBody CategoriesModel categoriesModel,
+                                  @PathVariable("category_Id") Long categoryID) {
+
+        categoriesService.editCategory(categoryID, categoriesModel);
+        return "redirect:categories";
+    }
 }

@@ -92,6 +92,7 @@ public class SubcategoriesService {
         subcategoriesRepositories.deleteById(subcategoryId);
     }
 
+
     public String getAuthenticatedUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
