@@ -217,7 +217,7 @@ window.addEventListener("load", function (event) {
         mainCategory.disabled = true;
         color.style.backgroundColor = array["color"]
         editor.classList.remove('hidden-box');
-        if (array["operationType"] === "expence") {
+        if (array["operationType"] === "expanse") {
             expenseCheckBox.checked = true;
         } else {
             incomeCheckBox.checked = true;
