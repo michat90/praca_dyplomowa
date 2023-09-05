@@ -158,7 +158,6 @@ window.addEventListener("load", function (event) {
         })
             .catch(err => {
                 console.log(err);
-                alert(err);
             });
 
         window.location = URL + 'new-transaction'
